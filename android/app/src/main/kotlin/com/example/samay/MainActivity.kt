@@ -1,4 +1,4 @@
-package com.example.samay_test
+package com.example.samay
 
 import io.flutter.embedding.android.FlutterActivity
 

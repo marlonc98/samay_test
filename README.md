@@ -1,4 +1,4 @@
-# samay_test
+# samay
 
 A new Flutter project.
 

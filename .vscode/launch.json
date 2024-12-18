@@ -1,0 +1,35 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "[FAKE] Samay",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_fake.dart",
+            "args": [
+                "--flavor",
+                "fake"
+            ]
+        },
+        {
+            "name": "[DEV] Samay",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_dev.dart",
+            "args": [
+                "--flavor",
+                "dev"
+            ]
+        },
+        {
+            "name": "[PROD] Samay",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_prod.dart",
+            "args": [
+                "--flavor",
+                "prod"
+            ]
+        }
+    ]
+}
