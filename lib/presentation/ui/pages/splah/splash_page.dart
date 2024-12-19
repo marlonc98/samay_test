@@ -1,7 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:samay/domain/states/Localization/localization_state.dart';
+import 'package:samay/domain/states/localization_state.dart';
 import 'package:samay/domain/use_cases/default/load_use_case.dart';
 import 'package:lottie/lottie.dart';
 import 'package:samay/utils/images_constants.dart';

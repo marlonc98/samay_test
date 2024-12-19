@@ -2,7 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:samay/data/repositories/localization/localization_repository_dev.dart';
 import 'package:samay/data/repositories/localization/localization_repository_fake.dart';
 import 'package:samay/data/repositories/localization/localization_repository_impl.dart';
-import 'package:samay/domain/states/Localization/localization_state.dart';
+import 'package:samay/domain/states/localization_state.dart';
 import 'package:samay/domain/repositories/localization_repository.dart';
 import 'package:samay/domain/use_cases/default/load_use_case.dart';
 import 'package:samay/flavors.dart';

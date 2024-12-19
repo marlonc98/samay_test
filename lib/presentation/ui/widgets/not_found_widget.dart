@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:samay/domain/states/localization/localization_state.dart';
+import 'package:provider/provider.dart';
+import 'package:samay/domain/states/localization_state.dart';
 import 'package:samay/utils/images_constants.dart';
 import 'package:samay/utils/key_words_constants.dart';
-import 'package:provider/provider.dart';
 
 class NotFoundWidget extends StatelessWidget {
   const NotFoundWidget({super.key});
