@@ -1,5 +1,6 @@
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:flutter/foundation.dart';
+import 'package:samay/domain/entities/bluetooth_device_entity.dart';
 
-abstract class DomoticState {
-  abstract List<BluetoothDevice> devices;
+abstract class DomoticState with ChangeNotifier{
+  abstract List<BluetoothDeviceEntity> knwonDevices;
 }
