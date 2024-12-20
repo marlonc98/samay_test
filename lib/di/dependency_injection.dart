@@ -6,7 +6,7 @@ import 'package:samay/domain/states/localization_state.dart';
 import 'package:samay/domain/repositories/localization_repository.dart';
 import 'package:samay/domain/use_cases/default/load_use_case.dart';
 import 'package:samay/flavors.dart';
-import 'package:samay/presentation/providers/states/localization_state_impl.dart';
+import 'package:samay/presentation/states/localization_state_impl.dart';
 
 enum ModeDependencyInjection { fake, dev, prod }
 

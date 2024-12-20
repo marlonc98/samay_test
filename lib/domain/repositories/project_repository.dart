@@ -7,7 +7,6 @@ import 'package:samay/domain/entities/search_result_entity.dart';
 abstract class ProjectRepository {
   Future<Either<ExceptionEntity, SearchResultEntity<ProjectEntity>>>
       searchProjects({
-    String searchWord,
     required int page,
     required int itemsPerPage,
     ProjectFilterEntity? filter,

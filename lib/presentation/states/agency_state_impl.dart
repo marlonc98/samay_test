@@ -11,5 +11,14 @@ class AgencyStateImpl extends AgencyState {
     _selectedAgency = value;
     notifyListeners();
   }
-  
+
+  List<AgencyEntity> _listOfAgencies = [];
+  @override
+  List<AgencyEntity> get listOfAgencies => _listOfAgencies;
+
+  @override
+  set listOfAgencies(List<AgencyEntity> value) {
+    _listOfAgencies = value;
+    notifyListeners();
+  }
 }

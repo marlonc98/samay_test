@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:samay/domain/entities/project_entity.dart';
-import 'package:samay/presentation/ui/pages/projects/projects_page_view_model.dart';
+import 'package:samay/presentation/ui/pages/projects/detailed/project_detailed_page.dart';
+import 'package:samay/presentation/ui/pages/projects/list/projects_page_view_model.dart';
+import 'package:samay/presentation/ui/pages/projects/list/widgets/banner_project_searcher_widget.dart';
+import 'package:samay/presentation/ui/pages/projects/list/widgets/card_project_widget.dart';
 
 class ProjectsPage extends StatelessWidget {
-  static const String route = '/cat';
+  static const String route = '/projects';
   const ProjectsPage({super.key});
 
   @override
@@ -16,20 +19,24 @@ class ProjectsPage extends StatelessWidget {
             builder: (context, viewModel, child) => Scaffold(
                     body: CustomScrollView(
                   slivers: [
+                    BannerProjectSearcherWidget(
+                        onChangeFilter: viewModel.handleOnChangeFilter),
                     SliverFillRemaining(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: PagedListView<int, ProjectEntity>(
                           padding: const EdgeInsets.all(0),
                           pagingController: viewModel.pagingController,
-                          builderDelegate: PagedChildBuilderDelegate<CatEntity>(
+                          builderDelegate:
+                              PagedChildBuilderDelegate<ProjectEntity>(
                             itemBuilder: (context, item, index) => Container(
                               margin: const EdgeInsets.only(bottom: 8),
-                              child: CatCardWidget(
-                                cat: item,
+                              child: CardProjectWidget(
+                                project: item,
                                 onTap: () => Navigator.of(context).pushNamed(
-                                    DetailedCatPage.route,
-                                    arguments: DetailedCatPage(id: item.id)),
+                                    ProjectDetailedPage.route,
+                                    arguments:
+                                        ProjectDetailedPage(id: item.id)),
                               ),
                             ),
                           ),
