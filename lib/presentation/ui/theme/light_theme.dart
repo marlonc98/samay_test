@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const Color colorMain = Color(0xFFBC6249);
+const Color colorMain = Color(0xFF483AE6);
 ThemeData lightTheme = ThemeData.light().copyWith(
   colorScheme: const ColorScheme.dark().copyWith(
     primary: colorMain,

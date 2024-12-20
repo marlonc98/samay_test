@@ -21,24 +21,16 @@ class ProjectsPage extends StatelessWidget {
                   slivers: [
                     BannerProjectSearcherWidget(
                         onChangeFilter: viewModel.handleOnChangeFilter),
-                    SliverFillRemaining(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: PagedListView<int, ProjectEntity>(
-                          padding: const EdgeInsets.all(0),
-                          pagingController: viewModel.pagingController,
-                          builderDelegate:
-                              PagedChildBuilderDelegate<ProjectEntity>(
-                            itemBuilder: (context, item, index) => Container(
-                              margin: const EdgeInsets.only(bottom: 8),
-                              child: CardProjectWidget(
-                                project: item,
-                                onTap: () => Navigator.of(context).pushNamed(
-                                    ProjectDetailedPage.route,
-                                    arguments:
-                                        ProjectDetailedPage(id: item.id)),
-                              ),
-                            ),
+                    PagedSliverList<int, ProjectEntity>(
+                      pagingController: viewModel.pagingController,
+                      builderDelegate: PagedChildBuilderDelegate<ProjectEntity>(
+                        itemBuilder: (context, item, index) => Container(
+                          margin: const EdgeInsets.only(bottom: 8),
+                          child: CardProjectWidget(
+                            project: item,
+                            onTap: () => Navigator.of(context).pushNamed(
+                                ProjectDetailedPage.route,
+                                arguments: ProjectDetailedPage(id: item.id)),
                           ),
                         ),
                       ),
