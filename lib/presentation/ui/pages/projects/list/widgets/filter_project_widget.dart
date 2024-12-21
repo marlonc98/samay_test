@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:samay/domain/entities/project_filter_entity.dart';
 
 class FilterProjectWidget extends StatefulWidget {
-  final Function(ProjectFilterEntity filter) onFiler;
+  final Function(ProjectFilterEntity filter) onFilter;
+  final ProjectFilterEntity filter;
 
   const FilterProjectWidget({
     super.key,
-    required this.onFiler,
+    required this.filter,
+    required this.onFilter,
   });
 
   @override

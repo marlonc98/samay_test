@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:samay/domain/states/localization_state.dart';
-import 'package:samay/utils/images_constants.dart';
 import 'package:samay/utils/key_words_constants.dart';
 
 class NotFoundWidget extends StatelessWidget {
@@ -16,13 +14,14 @@ class NotFoundWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(localization.translate(KeyWordsConstants.notFoundWidgetNotResults)),
+            Text(localization
+                .translate(KeyWordsConstants.notFoundWidgetNotResults)),
             SizedBox(height: MediaQuery.of(context).size.height * 0.2),
             TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: Text(localization.translate(KeyWordsConstants.notFoundWidgetGoBack))),
+                child: Text(localization
+                    .translate(KeyWordsConstants.notFoundWidgetGoBack))),
             SizedBox(height: MediaQuery.of(context).size.height * 0.4 - 300),
-            Lottie.asset(ImagesConstants.splashNotFound, height: 200),
           ],
         ),
       ),

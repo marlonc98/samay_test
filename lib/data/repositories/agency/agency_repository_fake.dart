@@ -11,9 +11,11 @@ AgencyEntity fakeAgency = AgencyEntity(
   id: '1',
   name: 'Fake Agency',
   hexColor: 'FF0000',
-  logo: 'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/agency-logo-design-template-63d79adb61b0737cf1c996c9ce6661e0_screen.jpg?ts=1677711623',
+  logo:
+      'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/agency-logo-design-template-63d79adb61b0737cf1c996c9ce6661e0_screen.jpg?ts=1677711623',
   aditionalFields: [],
 );
+
 class AgencyRepositoryFake extends AgencyRepository {
   @override
   Future<ThemeData> getThemeFromAgency(AgencyEntity agency) async {
@@ -31,36 +33,23 @@ class AgencyRepositoryFake extends AgencyRepository {
   @override
   Future<Either<ExceptionEntity, AgencyEntity?>> loadSelectedAgent() async {
     await Future.delayed(const Duration(seconds: 1));
-    return Right(fakeAgency);
+    // return Right(fakeAgency);
+    return const Right(null);
   }
 
   @override
-  Future<Either<ExceptionEntity, SearchResultEntity<AgencyEntity>>>
-      searchAgents(
-          {required String searchWord,
-          required int page,
-          required int itemsPerPage}) async {
+  Future<Either<ExceptionEntity, List<AgencyEntity>>> getAllAgents() async {
     await Future.delayed(const Duration(seconds: 1));
-    if(page > 3) {
-      return Right(SearchResultEntity<AgencyEntity>(
-        currentPage: page,
-        data: [],
-        itemsPerPage: itemsPerPage,
-        lastpage: page,
-        totalItems: 3 * itemsPerPage,
-      ));
-    }else {
-      return Right(SearchResultEntity<AgencyEntity>(
-        currentPage: page,
-        data: List.generate(
-          itemsPerPage,
-          (index) => fakeAgency,
-        ),
-        itemsPerPage: itemsPerPage,
-        lastpage: 3,
-        totalItems: 3 * itemsPerPage,
-      ));
+    const totalToReturn = 10;
+    List<AgencyEntity> agencies = [];
+    for (int i = 0; i < totalToReturn; i++) {
+      agencies.add(AgencyEntity(
+          id: i.toString(),
+          name: fakeAgency.name,
+          logo: fakeAgency.logo,
+          aditionalFields: fakeAgency.aditionalFields));
     }
+    return Right(agencies);
   }
 
   @override

@@ -1,9 +1,16 @@
 import 'dart:async';
 import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
+import 'package:samay/domain/entities/agency_entity.dart';
 import 'package:samay/domain/entities/project_filter_entity.dart';
+import 'package:samay/domain/states/agency_state.dart';
+import 'package:samay/domain/use_cases/agency/load_all_agencies_use_case.dart';
+import 'package:samay/presentation/ui/pages/projects/list/widgets/dropdown_agencies_widget.dart';
+import 'package:samay/presentation/ui/pages/projects/list/widgets/filter_project_widget.dart';
+import 'package:samay/utils/images_constants.dart';
 
 class BannerProjectSearcherWidget extends StatefulWidget {
   final Function(ProjectFilterEntity filter) onChangeFilter;
@@ -30,10 +37,32 @@ class _SearchProjectWidgetState extends State<BannerProjectSearcherWidget> {
   }
 
   double _calculateLimitExpanded(BuildContext context) {
-    const limit = 300.0;
+    const limit = 350.0;
     return MediaQuery.of(context).size.height > limit
         ? limit
         : MediaQuery.of(context).size.height;
+  }
+
+  void _handleOnChangeAgency(AgencyEntity? agency) {
+    filter.agencyId = agency?.id;
+    widget.onChangeFilter.call(filter);
+  }
+
+  void _handleOnChangeFilter(ProjectFilterEntity filter) {
+    this.filter.maxPrice = filter.maxPrice;
+    this.filter.minPrice = filter.minPrice;
+    widget.onChangeFilter.call(this.filter);
+  }
+
+  void _handleOpenFilter() {
+    //open FilterProjectWidget as bottom sheet
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => FilterProjectWidget(
+        onFilter: _handleOnChangeFilter,
+        filter: filter,
+      ),
+    );
   }
 
   @override
@@ -42,17 +71,16 @@ class _SearchProjectWidgetState extends State<BannerProjectSearcherWidget> {
       expandedHeight: _calculateLimitExpanded(context),
       collapsedHeight: 100,
       pinned: true,
-      floating: true,
       flexibleSpace: FlexibleSpaceBar(
         background: Stack(
           fit: StackFit.expand,
           children: [
             Image.asset(
-              'assets/images/bg_projects_page.jpg',
+              ImagesConstants.bgProjectsPage,
               fit: BoxFit.cover,
             ),
             BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+              filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
               child: Container(
                 color: Colors.black.withValues(alpha: 0.3),
               ),
@@ -62,20 +90,33 @@ class _SearchProjectWidgetState extends State<BannerProjectSearcherWidget> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Placeholder(
-                    fallbackHeight: 30,
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  DropdownAgenciesWidget(
+                    onChange: _handleOnChangeAgency,
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
-                  Image.asset(
-                    'assets/images/logo/applogo.png',
+                  SvgPicture.asset(
+                    ImagesConstants.logoWhite,
+                    height: 50,
+                  ),
+                  const Text(
+                    'Welcome!',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
+                  const Text(
+                    'Find your dreams',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w400),
+                  ),
+                  const SizedBox(
                     height: 100,
-                  ),
-                  const Text('Welcome'),
-                  const Text('find your dreams'),
-                  const SizedBox(
-                    height: 80,
                   ),
                 ],
               ),
@@ -85,7 +126,7 @@ class _SearchProjectWidgetState extends State<BannerProjectSearcherWidget> {
         centerTitle: true,
         title: Container(
           height: 40,
-          margin: const EdgeInsets.symmetric(horizontal: 8),
+          margin: const EdgeInsets.only(right: 8, left: 8, bottom: 10),
           padding: const EdgeInsets.only(top: 6, bottom: 6, right: 6),
           decoration: const BoxDecoration(
             color: Colors.white,
@@ -97,10 +138,12 @@ class _SearchProjectWidgetState extends State<BannerProjectSearcherWidget> {
             children: [
               Expanded(
                 child: TextField(
+                  controller: _textController,
+                  onChanged: _onKeyDownSearch,
                   decoration: InputDecoration(
                       isDense: true,
                       prefixIconConstraints: const BoxConstraints(maxWidth: 30),
-                      hintStyle: TextStyle(color: Colors.amber),
+                      hintStyle: const TextStyle(color: Colors.grey),
                       hintText: 'Search',
                       prefixIcon: Padding(
                         padding: const EdgeInsets.only(left: 8, right: 4),
@@ -118,16 +161,17 @@ class _SearchProjectWidgetState extends State<BannerProjectSearcherWidget> {
                   alignment: Alignment.center,
                   padding: EdgeInsets.zero,
                   iconSize: 20,
-                  onPressed: () {},
-                  icon: const Icon(
+                  onPressed: _handleOpenFilter,
+                  icon: Icon(
                     Icons.filter_list,
+                    color: Theme.of(context).primaryColor,
                   )),
-              TextButton(
+              ElevatedButton(
                   style: TextButton.styleFrom(
                       padding: const EdgeInsets.symmetric(horizontal: 5)),
                   onPressed: () {},
                   child: const Text(
-                    "search",
+                    "Search",
                     style: TextStyle(fontSize: 12, color: Colors.white),
                   )),
             ],

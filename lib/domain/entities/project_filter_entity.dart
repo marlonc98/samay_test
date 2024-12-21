@@ -5,9 +5,9 @@ class ProjectFilterEntity {
   String? querySearch;
 
   ProjectFilterEntity({
-    required this.minPrice,
-    required this.maxPrice,
-    required this.querySearch,
+    this.minPrice,
+    this.maxPrice,
+    this.querySearch,
     this.agencyId,
   });
 }

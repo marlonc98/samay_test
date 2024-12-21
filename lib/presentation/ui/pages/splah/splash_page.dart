@@ -1,10 +1,6 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:samay/domain/states/localization_state.dart';
-import 'package:samay/domain/use_cases/default/load_use_case.dart';
-import 'package:lottie/lottie.dart';
-import 'package:samay/presentation/ui/pages/projects/list/projects_page.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:samay/presentation/ui/pages/splah/splash_page_view_model.dart';
 import 'package:samay/utils/images_constants.dart';
 import 'package:samay/utils/key_words_constants.dart';
 import 'package:provider/provider.dart';
@@ -15,32 +11,43 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizationState = Provider.of<LocalizationState>(context);
-    return AnimatedSplashScreen(
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      splash: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            localizationState.translate(KeyWordsConstants.splashPageTitle),
-            style: const TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+    return ChangeNotifierProvider<SplashPageViewModel>(
+      create: (_) => SplashPageViewModel(context: context, widget: this),
+      child: Consumer<SplashPageViewModel>(
+        builder: (context, viewModel, child) => Scaffold(
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(),
+                SizedBox(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        ImagesConstants.logo,
+                        height: 50,
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      const CircularProgressIndicator(),
+                    ],
+                  ),
+                ),
+                Text(
+                  viewModel.localization
+                      .translate(KeyWordsConstants.splashPageVersion),
+                  style: TextStyle(color: Theme.of(context).primaryColor),
+                ),
+              ],
+            ),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.5 - 240,
-          ),
-          Lottie.asset(ImagesConstants.splashLoading, height: 200),
-          const SizedBox(
-            height: 4,
-          ),
-          Text(
-            localizationState.translate(KeyWordsConstants.splashPageVersion),
-            style: const TextStyle(color: Colors.white),
-          )
-        ],
+        ),
       ),
-      function: GetIt.instance.get<LoadUseCase>().call,
-      nextScreen: const ProjectsPage(),
     );
   }
 }

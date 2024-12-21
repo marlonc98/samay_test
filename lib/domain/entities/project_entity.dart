@@ -8,6 +8,7 @@ class ProjectEntity {
   double price;
   String imageUrl;
   String? description;
+  String name;
 
   ProjectEntity({
     required this.id,
@@ -17,5 +18,6 @@ class ProjectEntity {
     required this.price,
     required this.imageUrl,
     this.description,
+    required this.name,
   });
 }
