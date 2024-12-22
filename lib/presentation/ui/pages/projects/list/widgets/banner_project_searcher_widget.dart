@@ -51,6 +51,8 @@ class _SearchProjectWidgetState extends State<BannerProjectSearcherWidget> {
   void _handleOnChangeFilter(ProjectFilterEntity filter) {
     this.filter.maxPrice = filter.maxPrice;
     this.filter.minPrice = filter.minPrice;
+    this.filter.location = filter.location;
+    print("#s ${this.filter.toString()}");
     widget.onChangeFilter.call(this.filter);
   }
 
@@ -58,6 +60,7 @@ class _SearchProjectWidgetState extends State<BannerProjectSearcherWidget> {
     //open FilterProjectWidget as bottom sheet
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       builder: (context) => FilterProjectWidget(
         onFilter: _handleOnChangeFilter,
         filter: filter,
@@ -140,19 +143,20 @@ class _SearchProjectWidgetState extends State<BannerProjectSearcherWidget> {
                 child: TextField(
                   controller: _textController,
                   onChanged: _onKeyDownSearch,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       isDense: true,
-                      prefixIconConstraints: const BoxConstraints(maxWidth: 30),
-                      hintStyle: const TextStyle(color: Colors.grey),
+                      prefixIconConstraints: BoxConstraints(maxWidth: 30),
+                      hintStyle: TextStyle(color: Colors.grey),
                       hintText: 'Search',
                       prefixIcon: Padding(
-                        padding: const EdgeInsets.only(left: 8, right: 4),
+                        padding: EdgeInsets.only(left: 8, right: 4),
                         child: Icon(
                           Icons.search,
-                          color: Theme.of(context).primaryColor,
                           size: 20,
                         ),
                       ),
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
                       border: InputBorder.none),
                   style: const TextStyle(fontSize: 12),
                 ),
@@ -167,7 +171,8 @@ class _SearchProjectWidgetState extends State<BannerProjectSearcherWidget> {
                     color: Theme.of(context).primaryColor,
                   )),
               ElevatedButton(
-                  style: TextButton.styleFrom(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor,
                       padding: const EdgeInsets.symmetric(horizontal: 5)),
                   onPressed: () {},
                   child: const Text(

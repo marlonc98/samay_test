@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:samay/domain/entities/project_entity.dart';
+import 'package:samay/domain/states/agency_state.dart';
 import 'package:samay/presentation/ui/pages/projects/create/project_create_page.dart';
 import 'package:samay/presentation/ui/pages/projects/detailed/project_detailed_page.dart';
 import 'package:samay/presentation/ui/pages/projects/list/projects_page_view_model.dart';
@@ -53,15 +54,17 @@ class ProjectsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final agencyState = Provider.of<AgencyState>(context);
     return ChangeNotifierProvider<ProjectsPageViewModel>(
         create: (_) => ProjectsPageViewModel(context: context, widget: this),
         child: Consumer<ProjectsPageViewModel>(
             builder: (context, viewModel, child) => Scaffold(
-                    body: CustomScrollView(
+                resizeToAvoidBottomInset: true,
+                body: CustomScrollView(
                   slivers: [
                     BannerProjectSearcherWidget(
                         onChangeFilter: viewModel.handleOnChangeFilter),
-                    if (viewModel.agencyState.selectedAgency != null)
+                    if (agencyState.selectedAgency != null)
                       _addProjectButton(context),
                     PagedSliverList<int, ProjectEntity>(
                       pagingController: viewModel.pagingController,

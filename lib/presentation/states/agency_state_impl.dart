@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:samay/domain/entities/agency_entity.dart';
 import 'package:samay/domain/states/agency_state.dart';
 
@@ -9,6 +10,7 @@ class AgencyStateImpl extends AgencyState {
   @override
   set selectedAgency(AgencyEntity? value) {
     _selectedAgency = value;
+    _setThemeBasedOnAgency(value);
     notifyListeners();
   }
 
@@ -20,5 +22,24 @@ class AgencyStateImpl extends AgencyState {
   set listOfAgencies(List<AgencyEntity> value) {
     _listOfAgencies = value;
     notifyListeners();
+  }
+
+  ThemeData? _theme;
+  @override
+  ThemeData? get theme => _theme;
+  @override
+  set theme(ThemeData? value) {
+    _theme = value;
+    notifyListeners();
+  }
+
+  void _setThemeBasedOnAgency(AgencyEntity? agency) {
+    if (agency == null) {
+      theme = ThemeData.light();
+      return;
+    }
+    Color color = Color(int.parse('0xFF${agency.hexColor}'));
+    print("called _setThemeBasedOnAgency");
+    _theme = ThemeData.light().copyWith(primaryColor: color);
   }
 }

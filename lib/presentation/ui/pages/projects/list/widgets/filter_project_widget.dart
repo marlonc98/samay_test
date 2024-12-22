@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:samay/domain/entities/project_filter_entity.dart';
+import 'package:samay/presentation/ui/widgets/form/validators.dart';
+import 'package:samay/utils/currency_format.dart';
 
 class FilterProjectWidget extends StatefulWidget {
   final Function(ProjectFilterEntity filter) onFilter;
@@ -16,8 +18,183 @@ class FilterProjectWidget extends StatefulWidget {
 }
 
 class _FilterProjectWidget extends State<FilterProjectWidget> {
+  int? minPrice;
+  int? maxPrice;
+  String? location;
+
+  TextEditingController controllerFrom = TextEditingController();
+  TextEditingController controllerTo = TextEditingController();
+
+  @override
+  void initState() {
+    _loadData();
+    super.initState();
+  }
+
+  void _loadControllerCurrency(TextEditingController controller, int? oldVal) {
+    TextSelection selection = controller.selection;
+    String text = CurrencyFormat.usdToInt(controller.text).toString();
+    if (text.isEmpty || text == "null") {
+      controller.clear();
+      return;
+    }
+    bool wasDeleted = text.length < oldVal.toString().length;
+    if (CurrencyFormat.formatCurrencyString(text) != null) {
+      text = CurrencyFormat.formatCurrencyString(text)!;
+    }
+    if (controller.text != text) {
+      controller.text = text;
+    }
+    if (!wasDeleted &&
+        selection.baseOffset % 4 == 0 &&
+        selection.baseOffset != 0) {
+      //move offset one to right
+      selection = TextSelection.fromPosition(
+          TextPosition(offset: selection.baseOffset + 1));
+    } else if (wasDeleted &&
+        selection.baseOffset % 4 == 0 &&
+        selection.baseOffset != 0) {
+      //move offset one to left
+      selection = TextSelection.fromPosition(
+          TextPosition(offset: selection.baseOffset - 1));
+    }
+    controller.selection = selection;
+  }
+
+  void _loadData() {
+    minPrice = widget.filter.minPrice;
+    maxPrice = widget.filter.maxPrice;
+    location = widget.filter.location;
+    controllerFrom.text =
+        CurrencyFormat.formatCurrencyString(minPrice.toString()) ?? '';
+    controllerTo.text =
+        CurrencyFormat.formatCurrencyString(maxPrice.toString()) ?? '';
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Container(
+      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      height: MediaQuery.of(context).size.height * 0.5,
+      // constraints: BoxConstraints(
+      //   maxHeight: MediaQuery.of(context).size.height * 0.5,
+      // ),
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      child: Column(
+        children: [
+          Text(
+            'Filtrar proyectos',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).primaryColor,
+            ),
+          ),
+          TextFormField(
+            decoration: const InputDecoration(
+              labelText: "Ubicación",
+              prefixIcon: Icon(
+                Icons.map_outlined,
+              ),
+            ),
+            onChanged: (value) => location = value,
+            initialValue: widget.filter.location,
+          ),
+          const SizedBox(
+            height: 32,
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Precio',
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+          ),
+          Row(children: [
+            Expanded(
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  labelText: "Desde",
+                  prefixIcon: Icon(
+                    Icons.attach_money,
+                  ),
+                ),
+                controller: controllerFrom,
+                onChanged: (String? val) {
+                  _loadControllerCurrency(controllerFrom, minPrice);
+                  minPrice = CurrencyFormat.usdToInt(controllerFrom.text);
+                },
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                keyboardType: TextInputType.number,
+                validator: (val) => Validators.check(
+                  text: val,
+                  context: context,
+                  type: FormType.currency,
+                  maxValue: maxPrice ?? 9999999999,
+                  minValue: 0,
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  labelText: "Hasta",
+                  prefixIcon: Icon(
+                    Icons.attach_money,
+                  ),
+                ),
+                controller: controllerTo,
+                onChanged: (String? val) {
+                  _loadControllerCurrency(controllerTo, maxPrice);
+                  maxPrice = CurrencyFormat.usdToInt(controllerTo.text);
+                },
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                keyboardType: TextInputType.number,
+                validator: (val) => Validators.check(
+                  text: val,
+                  context: context,
+                  type: FormType.currency,
+                  maxValue: 9999999999,
+                  minValue: minPrice ?? 0,
+                ),
+              ),
+            ),
+          ]),
+          const Expanded(child: SizedBox()),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () {
+                    widget.onFilter(
+                      ProjectFilterEntity(
+                        location: location,
+                        minPrice: minPrice,
+                        maxPrice: maxPrice,
+                      ),
+                    );
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Filtrar'),
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
   }
 }

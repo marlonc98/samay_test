@@ -1,11 +1,9 @@
 import 'package:either_dart/either.dart';
-import 'package:get_it/get_it.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:samay/domain/entities/exception_entity.dart';
 import 'package:samay/domain/entities/project_entity.dart';
 import 'package:samay/domain/entities/project_filter_entity.dart';
 import 'package:samay/domain/entities/search_result_entity.dart';
-import 'package:samay/domain/states/agency_state.dart';
 import 'package:samay/domain/use_cases/project/search_projects_use_case.dart';
 import 'package:samay/presentation/ui/pages/projects/list/projects_page.dart';
 import 'package:samay/presentation/ui/pages/view_model.dart';
@@ -15,7 +13,6 @@ class ProjectsPageViewModel extends ViewModel<ProjectsPage> {
   ProjectsPageViewModel({required super.context, required super.widget}) {
     _initPaginController();
   }
-  AgencyState agencyState = GetIt.I.get<AgencyState>();
   ProjectFilterEntity filter = ProjectFilterEntity();
   String searching = "";
   int page = 1;

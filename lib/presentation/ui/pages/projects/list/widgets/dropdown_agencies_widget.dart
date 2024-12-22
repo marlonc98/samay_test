@@ -5,14 +5,24 @@ import 'package:samay/domain/entities/agency_entity.dart';
 import 'package:samay/domain/states/agency_state.dart';
 import 'package:samay/domain/use_cases/agency/load_all_agencies_use_case.dart';
 
-class DropdownAgenciesWidget extends StatelessWidget {
+class DropdownAgenciesWidget extends StatefulWidget {
   final Function(AgencyEntity? agency)? onChange;
 
-  DropdownAgenciesWidget({super.key, this.onChange}) {
+  const DropdownAgenciesWidget({super.key, this.onChange});
+
+  @override
+  State<DropdownAgenciesWidget> createState() => _DropdownAgenciesWidgetState();
+}
+
+class _DropdownAgenciesWidgetState extends State<DropdownAgenciesWidget> {
+  @override
+  void initState() {
     _loadAgencies();
+    super.initState();
   }
 
   void _loadAgencies() {
+    print("called _loadAgencies in constructor");
     GetIt.I.get<LoadAllAgenciesUseCase>().call();
   }
 
