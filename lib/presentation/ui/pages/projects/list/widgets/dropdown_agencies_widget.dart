@@ -22,7 +22,6 @@ class _DropdownAgenciesWidgetState extends State<DropdownAgenciesWidget> {
   }
 
   void _loadAgencies() {
-    print("called _loadAgencies in constructor");
     GetIt.I.get<LoadAllAgenciesUseCase>().call();
   }
 
@@ -36,6 +35,7 @@ class _DropdownAgenciesWidgetState extends State<DropdownAgenciesWidget> {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: DropdownButton<String>(
         value: agencyState.selectedAgency?.id,
+        underline: const SizedBox(),
         hint: Row(
           children: agencyState.selectedAgency != null
               ? [
@@ -47,12 +47,19 @@ class _DropdownAgenciesWidgetState extends State<DropdownAgenciesWidget> {
                   Text(agencyState.selectedAgency!.name +
                       agencyState.listOfAgencies.length.toString()),
                 ]
-              : const [
-                  Text('Select an option'),
+              : [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8, right: 16),
+                    child: Text(
+                      'Select real state agency',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                    ),
+                  ),
                 ],
         ),
-        icon: const Icon(Icons.arrow_drop_down,
-            color: Colors.blue), // Dropdown icon
+        icon: const Icon(Icons.keyboard_arrow_down), // Dropdown icon
         items: agencyState.listOfAgencies.map((AgencyEntity item) {
           return DropdownMenuItem<String>(
             value: item.id,
@@ -63,7 +70,12 @@ class _DropdownAgenciesWidgetState extends State<DropdownAgenciesWidget> {
                   height: 20,
                 ),
                 const SizedBox(width: 8),
-                Text(item.name),
+                Text(
+                  item.name,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                ),
               ],
             ),
           );

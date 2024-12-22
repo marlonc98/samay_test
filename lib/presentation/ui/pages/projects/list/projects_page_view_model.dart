@@ -30,8 +30,8 @@ class ProjectsPageViewModel extends ViewModel<ProjectsPage> {
 
   void handleOnChangeFilter(ProjectFilterEntity filter) async {
     this.filter = filter;
-    pagingController.refresh();
     page = 1;
+    _searchProjects();
   }
 
   void _searchProjects() async {

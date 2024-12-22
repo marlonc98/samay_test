@@ -8,6 +8,7 @@ import 'package:samay/presentation/ui/pages/projects/detailed/project_detailed_p
 import 'package:samay/presentation/ui/pages/projects/list/projects_page_view_model.dart';
 import 'package:samay/presentation/ui/pages/projects/list/widgets/banner_project_searcher_widget.dart';
 import 'package:samay/presentation/ui/pages/projects/list/widgets/card_project_widget.dart';
+import 'package:samay/presentation/ui/widgets/custom_botttom_navigation_widget.dart';
 
 class ProjectsPage extends StatelessWidget {
   static const String route = '/projects';
@@ -26,11 +27,11 @@ class ProjectsPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                const Text(
+                Text(
                   "Add Project...",
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        overflow: TextOverflow.ellipsis,
+                      ),
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -60,6 +61,10 @@ class ProjectsPage extends StatelessWidget {
         child: Consumer<ProjectsPageViewModel>(
             builder: (context, viewModel, child) => Scaffold(
                 resizeToAvoidBottomInset: true,
+                bottomNavigationBar: CustomBotttomNavigationWidget(
+                  key: key,
+                  currentRoute: route,
+                ),
                 body: CustomScrollView(
                   slivers: [
                     BannerProjectSearcherWidget(

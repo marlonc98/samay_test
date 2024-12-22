@@ -2,12 +2,8 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get_it/get_it.dart';
-import 'package:provider/provider.dart';
 import 'package:samay/domain/entities/agency_entity.dart';
 import 'package:samay/domain/entities/project_filter_entity.dart';
-import 'package:samay/domain/states/agency_state.dart';
-import 'package:samay/domain/use_cases/agency/load_all_agencies_use_case.dart';
 import 'package:samay/presentation/ui/pages/projects/list/widgets/dropdown_agencies_widget.dart';
 import 'package:samay/presentation/ui/pages/projects/list/widgets/filter_project_widget.dart';
 import 'package:samay/utils/images_constants.dart';
@@ -52,12 +48,10 @@ class _SearchProjectWidgetState extends State<BannerProjectSearcherWidget> {
     this.filter.maxPrice = filter.maxPrice;
     this.filter.minPrice = filter.minPrice;
     this.filter.location = filter.location;
-    print("#s ${this.filter.toString()}");
     widget.onChangeFilter.call(this.filter);
   }
 
   void _handleOpenFilter() {
-    //open FilterProjectWidget as bottom sheet
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -74,6 +68,7 @@ class _SearchProjectWidgetState extends State<BannerProjectSearcherWidget> {
       expandedHeight: _calculateLimitExpanded(context),
       collapsedHeight: 100,
       pinned: true,
+      backgroundColor: Theme.of(context).primaryColor,
       flexibleSpace: FlexibleSpaceBar(
         background: Stack(
           fit: StackFit.expand,
@@ -143,12 +138,12 @@ class _SearchProjectWidgetState extends State<BannerProjectSearcherWidget> {
                 child: TextField(
                   controller: _textController,
                   onChanged: _onKeyDownSearch,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                       isDense: true,
-                      prefixIconConstraints: BoxConstraints(maxWidth: 30),
-                      hintStyle: TextStyle(color: Colors.grey),
+                      prefixIconConstraints: const BoxConstraints(maxWidth: 30),
+                      hintStyle: Theme.of(context).textTheme.bodyMedium,
                       hintText: 'Search',
-                      prefixIcon: Padding(
+                      prefixIcon: const Padding(
                         padding: EdgeInsets.only(left: 8, right: 4),
                         child: Icon(
                           Icons.search,

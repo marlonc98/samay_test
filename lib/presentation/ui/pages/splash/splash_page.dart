@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:samay/presentation/ui/pages/splah/splash_page_view_model.dart';
+import 'package:samay/presentation/ui/pages/splash/splash_page_view_model.dart';
 import 'package:samay/utils/images_constants.dart';
 import 'package:samay/utils/key_words_constants.dart';
 import 'package:provider/provider.dart';

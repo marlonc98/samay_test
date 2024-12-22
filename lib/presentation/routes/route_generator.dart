@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:samay/presentation/ui/pages/projects/create/project_create_page.dart';
 import 'package:samay/presentation/ui/pages/projects/detailed/project_detailed_page.dart';
 import 'package:samay/presentation/ui/pages/projects/list/projects_page.dart';
-import 'package:samay/presentation/ui/pages/splah/splash_page.dart';
+import 'package:samay/presentation/ui/pages/splash/splash_page.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {

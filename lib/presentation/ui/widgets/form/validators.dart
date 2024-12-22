@@ -52,7 +52,7 @@ class Validators {
   }
 
   static String? checkRequired({required dynamic text, required context}) {
-    if (text == null || text == '' || (text is List && text.length == 0)) {
+    if (text == null || text == '' || (text is List && text.isEmpty)) {
       final localization =
           Provider.of<LocalizationState>(context, listen: false);
       return localization.translate(KeyWordsValidators.validatorRequired);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:samay/domain/entities/agency_entity.dart';
 import 'package:samay/domain/states/agency_state.dart';
+import 'package:samay/presentation/ui/theme/light_theme.dart';
 
 class AgencyStateImpl extends AgencyState {
   AgencyEntity? _selectedAgency;
@@ -35,11 +36,10 @@ class AgencyStateImpl extends AgencyState {
 
   void _setThemeBasedOnAgency(AgencyEntity? agency) {
     if (agency == null) {
-      theme = ThemeData.light();
+      theme = lightTheme();
       return;
     }
     Color color = Color(int.parse('0xFF${agency.hexColor}'));
-    print("called _setThemeBasedOnAgency");
-    _theme = ThemeData.light().copyWith(primaryColor: color);
+    _theme = lightTheme(colorMain: color);
   }
 }

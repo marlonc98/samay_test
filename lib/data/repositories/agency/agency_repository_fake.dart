@@ -40,7 +40,6 @@ class AgencyRepositoryFake extends AgencyRepository {
   Future<Either<ExceptionEntity, List<AgencyEntity>>> getAllAgents() async {
     await Future.delayed(const Duration(seconds: 1));
     const totalToReturn = 10;
-    print("called getAllAgents");
     List<AgencyEntity> agencies = [];
     //get random hex color for testing
     String toHex(int value) {
