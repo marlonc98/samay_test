@@ -3,7 +3,8 @@ import 'package:samay/utils/images_constants.dart';
 
 class NotReadImageWidget extends StatelessWidget {
   final double? height;
-  const NotReadImageWidget({super.key, this.height});
+  final double? width;
+  const NotReadImageWidget({super.key, this.height, this.width});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class NotReadImageWidget extends StatelessWidget {
         ImagesConstants.imageNotFound,
         height: height ?? 250,
         fit: BoxFit.cover,
-        width: double.infinity,
+        width: width ?? double.infinity,
       ),
     );
   }

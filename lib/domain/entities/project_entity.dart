@@ -5,7 +5,7 @@ class ProjectEntity {
   String agencyId;
   AgencyEntity? agency;
   String location;
-  double price;
+  int price;
   String imageUrl;
   String? description;
   String name;

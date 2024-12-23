@@ -167,6 +167,8 @@ class _SearchProjectWidgetState extends State<BannerProjectSearcherWidget> {
                   )),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)),
                       backgroundColor: Theme.of(context).primaryColor,
                       padding: const EdgeInsets.symmetric(horizontal: 5)),
                   onPressed: () {},
