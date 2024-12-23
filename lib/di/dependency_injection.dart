@@ -14,6 +14,7 @@ import 'package:samay/domain/use_cases/default/load_use_case.dart';
 import 'package:samay/domain/use_cases/project/create_project_use_case.dart';
 import 'package:samay/domain/use_cases/project/get_project_by_id_use_case.dart';
 import 'package:samay/domain/use_cases/project/search_projects_use_case.dart';
+import 'package:samay/domain/use_cases/project/update_project_use_case.dart';
 import 'package:samay/flavors.dart';
 import 'package:samay/presentation/states/agency_state_impl.dart';
 import 'package:samay/presentation/states/localization_state_impl.dart';
@@ -67,6 +68,8 @@ class DependencyInjection {
     getIt.registerSingleton<SearchProjectsUseCase>(SearchProjectsUseCase(
       projectRepository: getIt.get<ProjectRepository>(),
     ));
+    getIt.registerSingleton<UpdateProjectUseCase>(UpdateProjectUseCase(
+        projectRepository: getIt.get<ProjectRepository>()));
     //#endregion
     //#endregion
   }
