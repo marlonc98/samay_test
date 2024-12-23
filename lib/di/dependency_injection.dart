@@ -11,6 +11,7 @@ import 'package:samay/domain/states/localization_state.dart';
 import 'package:samay/domain/repositories/localization_repository.dart';
 import 'package:samay/domain/use_cases/agency/load_all_agencies_use_case.dart';
 import 'package:samay/domain/use_cases/default/load_use_case.dart';
+import 'package:samay/domain/use_cases/project/create_project_use_case.dart';
 import 'package:samay/domain/use_cases/project/get_project_by_id_use_case.dart';
 import 'package:samay/domain/use_cases/project/search_projects_use_case.dart';
 import 'package:samay/flavors.dart';
@@ -59,6 +60,8 @@ class DependencyInjection {
         localizationState: getIt.get<LocalizationState>()));
     //#endregion
     // //#region project
+    getIt.registerSingleton<CreateProjectUseCase>(CreateProjectUseCase(
+        projectRepository: getIt.get<ProjectRepository>()));
     getIt.registerSingleton<GetProjectByIdUseCase>(GetProjectByIdUseCase(
         projectRepository: getIt.get<ProjectRepository>()));
     getIt.registerSingleton<SearchProjectsUseCase>(SearchProjectsUseCase(

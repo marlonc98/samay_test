@@ -1,3 +1,4 @@
+import 'package:samay/domain/entities/aditional_field_entity.dart';
 import 'package:samay/domain/entities/agency_entity.dart';
 
 class ProjectEntity {
@@ -9,6 +10,7 @@ class ProjectEntity {
   String imageUrl;
   String? description;
   String name;
+  List<AditionalFieldEntity> aditionalFields;
 
   ProjectEntity({
     required this.id,
@@ -19,5 +21,6 @@ class ProjectEntity {
     required this.imageUrl,
     this.description,
     required this.name,
+    this.aditionalFields = const [],
   });
 }

@@ -56,8 +56,11 @@ class CustomBotttomNavigationWidget extends StatelessWidget {
       currentIndex: getRoutes(agencyState.selectedAgency)
           .indexWhere((element) => element.route == currentRoute),
       onTap: (index) {
-        Navigator.of(context)
-            .pushNamed(getRoutes(agencyState.selectedAgency)[index].route);
+        String nextRoute = getRoutes(agencyState.selectedAgency)[index].route;
+        if (nextRoute != currentRoute) {
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil(nextRoute, (route) => false);
+        }
       },
       items: getRoutes(agencyState.selectedAgency)
           .map((e) => BottomNavigationBarItem(

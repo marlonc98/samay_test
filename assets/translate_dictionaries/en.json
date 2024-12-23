@@ -1,0 +1,29 @@
+{
+    "delete": "Delete",
+    "save": "Save",
+    "update": "Update",
+    "accept": "Accept",
+
+    "notFoundWidgetNotResults": "No results found",
+    "notFoundWidgetGoBack": "Go Back",
+
+    "splashPageTitle": "UpHomes",
+    "splashPageVersion": "V 1.0.1",
+
+    "projectCreatePageTitleCreate": "Create Project",
+    "projectCreatePageTitleEdit": "Edit Project",
+    "projectCreatePageImageField": "Add Cover image",
+    "projectCreatePageNameField": "PROJECT NAME",
+    "projectCreatePageNameHint": "Something Catchy...",
+    "projectCreatePageAddressField": "PROJECT ADDRESS",
+    "projectCreatePageAddressHint": "123 Disnay way here...",
+    "projectCreatePagePriceField": "PRICE",
+    "projectCreatePagePriceHint": "$ Price",
+    "projectCreatePageDescriptionField": "DESCRIPTION",
+    "projectCreatePageDescriptionHint": "Neighborhood or city...",
+    
+    "cameraPickerWidgetTitle": "Select a photo",
+    "cameraPickerWidgetText": "Choose a photo from your gallery or take a new one",
+    "cameraPickerWidgetCamera": "Camera",
+    "cameraPickerWidgetGallery": "Gallery"
+}

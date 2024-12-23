@@ -31,36 +31,6 @@ class _FilterProjectWidget extends State<FilterProjectWidget> {
     super.initState();
   }
 
-  void _loadControllerCurrency(TextEditingController controller, int? oldVal) {
-    TextSelection selection = controller.selection;
-    String text = CurrencyFormat.usdToInt(controller.text).toString();
-    if (text.isEmpty || text == "null") {
-      controller.clear();
-      return;
-    }
-    bool wasDeleted = text.length < oldVal.toString().length;
-    if (CurrencyFormat.formatCurrencyString(text) != null) {
-      text = CurrencyFormat.formatCurrencyString(text)!;
-    }
-    if (controller.text != text) {
-      controller.text = text;
-    }
-    if (!wasDeleted &&
-        selection.baseOffset % 4 == 0 &&
-        selection.baseOffset != 0) {
-      //move offset one to right
-      selection = TextSelection.fromPosition(
-          TextPosition(offset: selection.baseOffset + 1));
-    } else if (wasDeleted &&
-        selection.baseOffset % 4 == 0 &&
-        selection.baseOffset != 0) {
-      //move offset one to left
-      selection = TextSelection.fromPosition(
-          TextPosition(offset: selection.baseOffset - 1));
-    }
-    controller.selection = selection;
-  }
-
   void _loadData() {
     minPrice = widget.filter.minPrice;
     maxPrice = widget.filter.maxPrice;
@@ -133,7 +103,8 @@ class _FilterProjectWidget extends State<FilterProjectWidget> {
                 ),
                 controller: controllerFrom,
                 onChanged: (String? val) {
-                  _loadControllerCurrency(controllerFrom, minPrice);
+                  CurrencyFormat.loadControllerCurrency(
+                      controllerFrom, minPrice);
                   minPrice = CurrencyFormat.usdToInt(controllerFrom.text);
                 },
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -158,7 +129,7 @@ class _FilterProjectWidget extends State<FilterProjectWidget> {
                 ),
                 controller: controllerTo,
                 onChanged: (String? val) {
-                  _loadControllerCurrency(controllerTo, maxPrice);
+                  CurrencyFormat.loadControllerCurrency(controllerTo, maxPrice);
                   maxPrice = CurrencyFormat.usdToInt(controllerTo.text);
                 },
                 autovalidateMode: AutovalidateMode.onUserInteraction,

@@ -4,6 +4,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:either_dart/src/either.dart';
 import 'package:flutter/src/material/theme_data.dart';
+import 'package:samay/domain/entities/aditional_field_entity.dart';
 import 'package:samay/domain/entities/agency_entity.dart';
 import 'package:samay/domain/entities/exception_entity.dart';
 import 'package:samay/domain/repositories/agency_respository.dart';
@@ -15,7 +16,23 @@ AgencyEntity fakeAgency = AgencyEntity(
   hexColor: 'FF0000',
   logo:
       'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/agency-logo-design-template-63d79adb61b0737cf1c996c9ce6661e0_screen.jpg?ts=1677711623',
-  aditionalFields: [],
+  aditionalFields: [
+    AditionalFieldEntity(
+        name: "Certificates",
+        type: AditionalFielType.text,
+        hint: "ISO ...",
+        value: "ISO 121212, ISO 121212"),
+    AditionalFieldEntity(
+        name: "Built Year",
+        type: AditionalFielType.number,
+        value: "2021",
+        hint: "1999..."),
+    AditionalFieldEntity(
+        name: 'Taxes Dates',
+        type: AditionalFielType.date,
+        value: DateTime.now(),
+        hint: "205-12-11"),
+  ],
 );
 
 class AgencyRepositoryFake extends AgencyRepository {
@@ -32,8 +49,8 @@ class AgencyRepositoryFake extends AgencyRepository {
   @override
   Future<Either<ExceptionEntity, AgencyEntity?>> loadSelectedAgent() async {
     await Future.delayed(const Duration(seconds: 1));
-    // return Right(fakeAgency);
-    return const Right(null);
+    return Right(fakeAgency);
+    // return const Right(null);
   }
 
   @override
@@ -63,7 +80,7 @@ class AgencyRepositoryFake extends AgencyRepository {
       final String randomHex = getRandomHexColor();
       agencies.add(AgencyEntity(
           id: i.toString(),
-          name: i.toString() + fakeAgency.name + randomHex,
+          name: fakeAgency.name + randomHex,
           logo: fakeAgency.logo,
           hexColor: randomHex,
           aditionalFields: fakeAgency.aditionalFields));

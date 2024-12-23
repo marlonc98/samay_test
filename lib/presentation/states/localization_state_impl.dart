@@ -5,12 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:samay/domain/states/localization_state.dart';
 
 class LocalizationStateImpl extends LocalizationState {
-
   LocalizationStateImpl() {
     _load();
   }
-  
-  Locale _locale = const Locale('es', '');
+
+  Locale _locale = const Locale('en', '');
   @override
   Locale get locale => _locale;
   @override
@@ -21,8 +20,8 @@ class LocalizationStateImpl extends LocalizationState {
 
   Map<String, String> _localizedStrings = {};
   Future<void> _load() async {
-    String jsonString = await rootBundle
-        .loadString('assets/translate_dictionaries/${locale.languageCode}.json');
+    String jsonString = await rootBundle.loadString(
+        'assets/translate_dictionaries/${locale.languageCode}.json');
     Map<String, dynamic> jsonMap = json.decode(jsonString);
     _localizedStrings =
         jsonMap.map((key, value) => MapEntry(key, value.toString()));

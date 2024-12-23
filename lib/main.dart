@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
       title: 'App Name',
       debugShowCheckedModeBanner: false,
       theme: Provider.of<AgencyState>(context).theme ?? lightTheme(),
+      darkTheme: ThemeData.dark(),
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }

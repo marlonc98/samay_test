@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:samay/domain/entities/aditional_field_entity.dart';
 import 'package:samay/domain/entities/waiter_data_entity.dart';
 import 'package:samay/domain/states/agency_state.dart';
 import 'package:samay/presentation/ui/pages/projects/detailed/project_detailed_widget_view_model.dart';
@@ -38,6 +39,27 @@ class ProjectDetailedPage extends StatelessWidget {
               child: CustomScrollView(
                 slivers: [
                   SliverAppBar(
+                    actions: [
+                      InkWell(
+                        onTap: viewModel.handleEdit,
+                        child: Container(
+                          margin: const EdgeInsets.only(left: 8, right: 8),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: (agencyState.selectedAgency == null
+                                    ? Colors.black
+                                    : Theme.of(context).primaryColor)
+                                .withAlpha(100),
+                          ),
+                          padding: const EdgeInsets.all(18),
+                          child: const Icon(
+                            Icons.edit,
+                            size: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
                     leading: Container(
                       margin: const EdgeInsets.only(left: 8),
                       decoration: BoxDecoration(
@@ -98,6 +120,29 @@ class ProjectDetailedPage extends StatelessWidget {
                               "",
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
+                        ...viewModel
+                            .projectWaiterDataEntity.data!.aditionalFields
+                            .map((AditionalFieldEntity aditional) => SizedBox(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        aditional.name,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium,
+                                      ),
+                                      Text(
+                                        aditional.value.toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium,
+                                      ),
+                                    ],
+                                  ),
+                                )),
                         const SizedBox(height: 100),
                       ],
                     ),
@@ -109,7 +154,7 @@ class ProjectDetailedPage extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               decoration: const BoxDecoration(
                 color: Colors.black,
-                borderRadius: const BorderRadius.only(
+                borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(15),
                   topRight: Radius.circular(15),
                 ),

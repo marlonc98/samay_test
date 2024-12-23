@@ -27,13 +27,15 @@ ThemeData lightTheme({Color colorMain = _colorMain}) {
             0.1,
           ),
     appBarTheme: AppBarTheme(
-      backgroundColor: colorMain,
+      backgroundColor: Colors.white,
+      titleTextStyle: TextStyle(color: colorMain, fontSize: 20),
       elevation: 0,
-      iconTheme: const IconThemeData(color: Colors.white),
+      iconTheme: IconThemeData(color: colorMain),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         backgroundColor: colorMain,
+        iconColor: Colors.white,
         foregroundColor: Colors.white,
         // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),

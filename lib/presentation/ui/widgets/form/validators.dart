@@ -114,6 +114,8 @@ class Validators {
       bool? atLeastOneLowercase,
       bool? atLeastOneUppercase,
       bool? atLeastOneNumber,
+      Map<String, dynamic>? fields,
+      String? keyText,
       required dynamic text,
       required context}) {
     if (required) {
@@ -174,6 +176,16 @@ class Validators {
     if (type == FormType.double) {
       String? check = checkIfIsDouble(text: text, context: context);
       if (check != null) return check;
+    }
+
+    if (keyText != null && fields != null) {
+      if (type == FormType.number) {
+        fields[keyText] = double.tryParse(text)?.toInt();
+      } else if (type == FormType.double) {
+        fields[keyText] = double.tryParse(text);
+      } else {
+        fields[keyText] = text;
+      }
     }
     return null;
   }
