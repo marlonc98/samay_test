@@ -35,61 +35,73 @@ class ProjectDetailedPage extends StatelessWidget {
           return Scaffold(
             body: Padding(
               padding: const EdgeInsets.only(top: 32, left: 16, right: 16),
-              child: ListView(
-                children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(15)),
-                    child: Stack(
-                      children: [
-                        ImageNetworkWithLoad(
-                          viewModel.projectWaiterDataEntity.data!.imageUrl,
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.width * .8,
-                          fit: BoxFit.cover,
+              child: CustomScrollView(
+                slivers: [
+                  SliverAppBar(
+                    leading: Container(
+                      margin: const EdgeInsets.only(left: 8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: (agencyState.selectedAgency == null
+                                ? Colors.black
+                                : Theme.of(context).primaryColor)
+                            .withAlpha(100),
+                      ),
+                      padding: const EdgeInsets.all(8),
+                      child: const Icon(
+                        Icons.arrow_back,
+                        size: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                    expandedHeight: MediaQuery.of(context).size.width * .8,
+                    backgroundColor: Colors.transparent,
+                    flexibleSpace: FlexibleSpaceBar(
+                      background: Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(15)),
+                          child: ImageNetworkWithLoad(
+                            viewModel.projectWaiterDataEntity.data!.imageUrl,
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.width * .8,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                        Positioned(
-                            top: 15,
-                            left: 15,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: (agencyState.selectedAgency == null
-                                        ? Colors.black
-                                        : Theme.of(context).primaryColor)
-                                    .withAlpha(100),
-                              ),
-                              padding: const EdgeInsets.all(8),
-                              child: const Icon(
-                                Icons.arrow_back,
-                                size: 20,
-                                color: Colors.white,
-                              ),
-                            ))
-                      ],
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "Home",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium
-                        ?.copyWith(fontSize: 28),
-                  ),
-                  Text(
-                    viewModel.projectWaiterDataEntity.data!.location,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "DESCRIPTION",
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  Text(
-                    viewModel.projectWaiterDataEntity.data!.description ?? "",
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  const SizedBox(height: 100),
+                  SliverToBoxAdapter(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 8),
+                        Text(
+                          "Home",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(fontSize: 28),
+                        ),
+                        Text(
+                          viewModel.projectWaiterDataEntity.data!.location,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          "DESCRIPTION",
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        Text(
+                          viewModel.projectWaiterDataEntity.data!.description ??
+                              "",
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        const SizedBox(height: 100),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
