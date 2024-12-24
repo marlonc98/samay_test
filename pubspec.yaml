@@ -123,13 +123,19 @@ flavorizr:
         name: "[DEV] Samay"
       android:
         applicationId: "com.example.samay.dev"
+      ios:
+        bundleId: "com.example.samay.dev"
     fake:
       app:
         name: "[FAKE] Samay"
       android:
         applicationId: "com.example.samay.fake"
+      ios:
+        bundleId: "com.example.samay.fake"
     prod:
       app:
         name: "Samay"
       android:
         applicationId: "com.example.samay"
+      ios:
+        bundleId: "com.example.samay"

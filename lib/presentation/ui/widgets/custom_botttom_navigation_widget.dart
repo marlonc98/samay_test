@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:samay/domain/entities/agency_entity.dart';
 import 'package:samay/domain/states/agency_state.dart';
+import 'package:samay/presentation/ui/pages/domotic/connected/connected_devices_page.dart';
 import 'package:samay/presentation/ui/pages/projects/create/project_create_page.dart';
 import 'package:samay/presentation/ui/pages/projects/list/projects_page.dart';
 
@@ -40,7 +41,7 @@ class CustomBotttomNavigationWidget extends StatelessWidget {
         display: agency != null,
       ),
       RouteBottomNavigation(
-        route: ProjectCreatePage.route, //Add domotic
+        route: ConnectedDevicesPage.route, //Add domotic
         icon: Icons.bluetooth,
         label: "Domotic",
       ),
