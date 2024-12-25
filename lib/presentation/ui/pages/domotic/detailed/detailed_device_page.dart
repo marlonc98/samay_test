@@ -44,15 +44,25 @@ class DetailedDevicePage extends StatelessWidget {
                 hasScrollBody: false,
                 child: Column(
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: Card(
-                        elevation: 0,
-                        child: ListTile(
-                          title: Text('Device interactions'),
+                        elevation: 01,
+                        child: Container(
+                          padding: const EdgeInsets.all(20),
+                          width: double.infinity,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: device.interactions.isEmpty
+                                  ? const [Text("No interactions yet")]
+                                  : device.interactions
+                                      .map((interaction) => Text(interaction))
+                                      .toList(),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     Row(
                       children: [
                         Expanded(
@@ -61,7 +71,10 @@ class DetailedDevicePage extends StatelessWidget {
                               horizontal: 30, vertical: 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
-                            color: Colors.white,
+                            color: Brightness.light ==
+                                    MediaQuery.of(context).platformBrightness
+                                ? Colors.white
+                                : Colors.black,
                           ),
                           child: TextField(
                             decoration: const InputDecoration(
@@ -80,7 +93,7 @@ class DetailedDevicePage extends StatelessWidget {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
-                            color: Theme.of(context).primaryColor,
+                            color: Theme.of(context).scaffoldBackgroundColor,
                           ),
                           child: IconButton(
                             icon: const Icon(

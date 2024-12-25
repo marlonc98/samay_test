@@ -8,6 +8,7 @@ class BluetoothDeviceEntity {
   bool connected;
   bool on;
   BluetoothDevice? deviceBluetooth;
+  List<String> interactions = [];
 
   BluetoothDeviceEntity(
       {required this.name,

@@ -4,11 +4,11 @@ import 'package:samay/presentation/ui/pages/view_model.dart';
 
 class DetailedDevicePageViewModel extends ViewModel<DetailedDevicePage> {
   DetailedDevicePageViewModel({required super.context, required super.widget});
-  List<String> deviceInteractions = [];
   TextEditingController interactionController = TextEditingController();
 
   void addInteraction(String interaction) {
-    deviceInteractions.add(interaction);
+    final copyInteractions = widget.device.interactions;
+    widget.device.interactions = [interaction, ...copyInteractions];
     interactionController.clear();
     notifyListeners();
   }

@@ -22,6 +22,11 @@ class ToggleOnDeviceUseCase {
           .where((deviceKnown) => deviceKnown.address == device.address)
           .forEach((deviceKnown) {
         deviceKnown.on = on;
+        final copyInteractions = deviceKnown.interactions;
+        deviceKnown.interactions = [
+          'Device turned ${on ? 'on' : 'off'}',
+          ...copyInteractions
+        ];
       });
       domoticState.notify();
     }
