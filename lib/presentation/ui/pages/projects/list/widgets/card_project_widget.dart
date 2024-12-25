@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:samay/domain/entities/project_entity.dart';
-import 'package:samay/presentation/ui/widgets/image_network_with_load.dart';
+import 'package:samay/presentation/ui/widgets/image_network_with_load_widget.dart';
 
 class CardProjectWidget extends StatelessWidget {
   final ProjectEntity project;
@@ -24,7 +24,7 @@ class CardProjectWidget extends StatelessWidget {
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10)), // Adjust the radius
-              child: ImageNetworkWithLoad(project.imageUrl),
+              child: ImageNetworkWithLoadWidget(project.imageUrl),
             ),
             Padding(
                 padding: const EdgeInsets.all(8),

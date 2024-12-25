@@ -69,6 +69,10 @@ ThemeData lightTheme({Color colorMain = _colorMain}) {
       ),
       prefixIconColor: colorMain, // Color del ícono por defecto
     ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: colorMain,
+      foregroundColor: Colors.white,
+    ),
     textTheme: TextTheme(
       headlineLarge: _originalLightTheme.textTheme.headlineLarge?.copyWith(
         fontSize: 24,

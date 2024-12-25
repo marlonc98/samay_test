@@ -1,14 +1,20 @@
-class BluetoothDeviceEntity {
-  final String rssid;
-  final String name;
-  final String address;
-  final String? imageUrl;
-  final int? charge;
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
-  const BluetoothDeviceEntity(
-      {required this.rssid,
-      required this.name,
+class BluetoothDeviceEntity {
+  String name;
+  String address;
+  String? imageUrl;
+  double? charge;
+  bool connected;
+  bool on;
+  BluetoothDevice? deviceBluetooth;
+
+  BluetoothDeviceEntity(
+      {required this.name,
       required this.address,
       this.imageUrl,
-      this.charge});
+      this.connected = false,
+      this.on = false,
+      this.charge,
+      this.deviceBluetooth});
 }

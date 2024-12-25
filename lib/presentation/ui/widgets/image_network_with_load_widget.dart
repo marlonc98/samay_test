@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:samay/presentation/ui/widgets/not_read_image_widget.dart';
 
-class ImageNetworkWithLoad extends StatelessWidget {
+class ImageNetworkWithLoadWidget extends StatelessWidget {
   final String imageUrl;
   final double? height;
   final double? width;
   final BoxFit fit;
 
-  const ImageNetworkWithLoad(
+  const ImageNetworkWithLoadWidget(
     this.imageUrl, {
     super.key,
     this.height,
@@ -15,11 +15,15 @@ class ImageNetworkWithLoad extends StatelessWidget {
     this.fit = BoxFit.cover,
   });
 
+  _isWeb() {
+    return imageUrl.startsWith('http') || imageUrl.startsWith('https');
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Image.network(
-      imageUrl,
-      fit: BoxFit.cover,
+    return Image(
+      image: _isWeb() ? NetworkImage(imageUrl) : AssetImage(imageUrl),
+      fit: fit,
       width: width,
       height: height,
       errorBuilder: (context, error, stackTrace) {

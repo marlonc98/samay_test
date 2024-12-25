@@ -4,7 +4,7 @@ import 'package:samay/domain/entities/aditional_field_entity.dart';
 import 'package:samay/domain/entities/waiter_data_entity.dart';
 import 'package:samay/domain/states/agency_state.dart';
 import 'package:samay/presentation/ui/pages/projects/detailed/project_detailed_widget_view_model.dart';
-import 'package:samay/presentation/ui/widgets/image_network_with_load.dart';
+import 'package:samay/presentation/ui/widgets/image_network_with_load_widget.dart';
 import 'package:samay/presentation/ui/widgets/loading_widget.dart';
 import 'package:samay/presentation/ui/widgets/not_found_widget.dart';
 import 'package:samay/utils/currency_format.dart';
@@ -88,7 +88,7 @@ class ProjectDetailedPage extends StatelessWidget {
                         background: ClipRRect(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(15)),
-                          child: ImageNetworkWithLoad(
+                          child: ImageNetworkWithLoadWidget(
                             viewModel.projectWaiterDataEntity.data!.imageUrl,
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.width * .8,

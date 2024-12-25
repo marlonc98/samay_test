@@ -14,7 +14,10 @@ import 'package:samay/domain/states/localization_state.dart';
 import 'package:samay/domain/repositories/localization_repository.dart';
 import 'package:samay/domain/use_cases/agency/load_all_agencies_use_case.dart';
 import 'package:samay/domain/use_cases/default/load_use_case.dart';
+import 'package:samay/domain/use_cases/domotic/connect_device_use_case.dart';
 import 'package:samay/domain/use_cases/domotic/get_connected_devices_use_case.dart';
+import 'package:samay/domain/use_cases/domotic/search_devices_to_connect_use_case.dart';
+import 'package:samay/domain/use_cases/domotic/toggle_on_device_use_case.dart';
 import 'package:samay/domain/use_cases/project/create_project_use_case.dart';
 import 'package:samay/domain/use_cases/project/get_project_by_id_use_case.dart';
 import 'package:samay/domain/use_cases/project/search_projects_use_case.dart';
@@ -67,11 +70,23 @@ class DependencyInjection {
         localizationState: getIt.get<LocalizationState>()));
     //#endregion
     //#region domotic
+    getIt.registerSingleton<ConnectDeviceUseCase>(ConnectDeviceUseCase(
+      domoticRepository: getIt.get<DomoticRepository>(),
+      domoticState: getIt.get<DomoticState>(),
+    ));
     getIt.registerSingleton<GetConnectedDevicesUseCase>(
         GetConnectedDevicesUseCase(
       domoticRepository: getIt.get<DomoticRepository>(),
       domoticState: getIt.get<DomoticState>(),
     ));
+    getIt.registerSingleton<SearchDevicesToConnectUseCase>(
+        SearchDevicesToConnectUseCase(
+      domoticRepository: getIt.get<DomoticRepository>(),
+      domoticState: getIt.get<DomoticState>(),
+    ));
+    getIt.registerSingleton<ToggleOnDeviceUseCase>(ToggleOnDeviceUseCase(
+        domoticRepository: getIt.get<DomoticRepository>(),
+        domoticState: getIt.get<DomoticState>()));
     //#endregion
     //#region project
     getIt.registerSingleton<CreateProjectUseCase>(CreateProjectUseCase(
