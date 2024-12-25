@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:samay/data/repositories/agency/agency_repository_fake.dart';
+import 'package:samay/data/repositories/domotic/domotic_repository_dev.dart';
 import 'package:samay/data/repositories/domotic/domotic_repository_fake.dart';
 import 'package:samay/data/repositories/localization/localization_repository_dev.dart';
 import 'package:samay/data/repositories/localization/localization_repository_fake.dart';
@@ -41,8 +42,11 @@ class DependencyInjection {
           LocalizationRepositoryFake());
       getIt.registerSingleton<ProjectRepository>(ProjectRepositoryFake());
     } else if (mode == Flavor.dev) {
+      getIt.registerSingleton<AgencyRepository>(AgencyRepositoryFake());
+      getIt.registerSingleton<DomoticRepository>(DomoticRepositoryDev());
       getIt.registerSingleton<LocalizationRepository>(
           LocalizationRepositoryDev());
+      getIt.registerSingleton<ProjectRepository>(ProjectRepositoryFake());
     } else {
       getIt.registerSingleton<LocalizationRepository>(
           LocalizationRepositoryImpl());

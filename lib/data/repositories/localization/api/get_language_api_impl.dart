@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 List<Locale> _options = [
-  const Locale('es', 'ES'),
+  const Locale('en', 'US'),
 ];
 
 @override
