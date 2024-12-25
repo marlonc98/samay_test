@@ -8,28 +8,39 @@ import 'package:samay/presentation/ui/pages/view_model.dart';
 import 'package:samay/utils/show_modal.dart';
 
 class SearchDevicesPageViewModel extends ViewModel<SearchDevicesPage> {
-  SearchDevicesPageViewModel({required super.context, required super.widget}) {
+  SearchDevicesPageViewModel(
+      {required super.context,
+      required super.widget,
+      required super.isMounted}) {
     searchDevices();
   }
 
   WaiterDataEntity<List<BluetoothDevice>> waiterDevices =
       WaiterDataEntity<List<BluetoothDevice>>();
 
-  void searchDevices() async {
+  Future<void> searchDevices() async {
     waiterDevices = WaiterDataEntity();
+
+    void onCallBack(List<BluetoothDevice> devices) {
+      waiterDevices.data = devices;
+      if (mounted) notifyListeners();
+    }
+
     notifyListeners();
     Either<ExceptionEntity, List<BluetoothDevice>> response =
-        await getIt.get<SearchDevicesToConnectUseCase>().call();
+        await getIt.get<SearchDevicesToConnectUseCase>().call(onCallBack);
     if (response.isLeft) {
       waiterDevices = WaiterDataEntity(status: WaiterDataEntityStatus.error);
-      // ignore: use_build_context_synchronously
-      ShowModal.showSnackBar(context: context, text: response.left.code);
+      if (mounted) {
+        // ignore: use_build_context_synchronously
+        ShowModal.showSnackBar(context: context, text: response.left.code);
+      }
     } else {
       waiterDevices = WaiterDataEntity(
         status: WaiterDataEntityStatus.loaded,
         data: response.right,
       );
-      notifyListeners();
+      if (mounted) notifyListeners();
     }
   }
 

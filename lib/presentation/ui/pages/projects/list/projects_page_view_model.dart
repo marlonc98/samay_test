@@ -42,11 +42,13 @@ class ProjectsPageViewModel extends ViewModel<ProjectsPage> {
               filter: filter,
             );
     if (response.isLeft) {
-      ShowModal.showSnackBar(
-          // ignore: use_build_context_synchronously
-          context: context,
-          text: localization.translate(response.left.code),
-          error: true);
+      if (mounted) {
+        ShowModal.showSnackBar(
+            // ignore: use_build_context_synchronously
+            context: context,
+            text: response.left.code,
+            error: true);
+      }
       return;
     }
     if (page == 1) pagingController.itemList = [];

@@ -83,9 +83,10 @@ class DetailedDevicePage extends StatelessWidget {
                               enabledBorder: InputBorder.none,
                             ),
                             controller: viewModel.interactionController,
-                            enabled: device.on,
+                            enabled:
+                                device.deviceBluetooth?.isConnected ?? false,
                             onSubmitted: (value) {
-                              viewModel.addInteraction(value);
+                              viewModel.handleAddInteraction(value);
                             },
                           ),
                         )),
@@ -93,7 +94,7 @@ class DetailedDevicePage extends StatelessWidget {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            color: Theme.of(context).primaryColor,
                           ),
                           child: IconButton(
                             icon: const Icon(
@@ -101,7 +102,7 @@ class DetailedDevicePage extends StatelessWidget {
                               color: Colors.white,
                             ),
                             onPressed: () {
-                              viewModel.addInteraction('Interaction');
+                              viewModel.handleAddInteraction('Interaction');
                             },
                           ),
                         )

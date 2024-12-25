@@ -19,6 +19,7 @@ class ConnectDeviceUseCase {
     Either<ExceptionEntity, BluetoothDeviceEntity> response =
         await domoticRepository.connectBluetoothDevice(device);
     if (response.isRight) {
+      domoticRepository.saveBluetoothDevice(response.right);
       domoticState.knwonDevices.add(response.right);
       domoticState.notify();
     }

@@ -8,8 +8,12 @@ class ViewModel<T> with ChangeNotifier {
   BuildContext context;
   GetIt getIt = GetIt.instance;
   late LocalizationState localization;
+  bool Function() isMounted;
+  bool get mounted => isMounted();
 
-  ViewModel({required this.context, required this.widget}) {
+  ViewModel(
+      {required this.context, required this.widget, bool Function()? isMounted})
+      : isMounted = isMounted ?? (() => true) {
     this.localization = Provider.of<LocalizationState>(context);
   }
 }

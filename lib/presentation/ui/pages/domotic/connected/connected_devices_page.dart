@@ -39,27 +39,30 @@ class ConnectedDevicesPage extends StatelessWidget {
                 key: key,
                 currentRoute: route,
               ),
-              body: CustomScrollView(
-                slivers: [
-                  SliverAppBar(
-                    title: const Text('Connected Devices'),
-                    floating: true,
-                    snap: true,
-                    actions: [
-                      IconButton(
-                          icon: const Icon(Icons.refresh),
-                          onPressed: viewModel.refreshDevices)
-                    ],
-                  ),
-                  SliverGrid.count(
-                      crossAxisCount: 2,
-                      children: domoticDevices
-                          .map((device) => CardDeviceWidget(
-                                device: device,
-                                onTap: viewModel.handleOnDeviceTap,
-                              ))
-                          .toList()),
-                ],
+              body: RefreshIndicator(
+                onRefresh: () => viewModel.refreshDevices(),
+                child: CustomScrollView(
+                  slivers: [
+                    SliverAppBar(
+                      title: const Text('Connected Devices'),
+                      floating: true,
+                      snap: true,
+                      actions: [
+                        IconButton(
+                            icon: const Icon(Icons.refresh),
+                            onPressed: viewModel.refreshDevices)
+                      ],
+                    ),
+                    SliverGrid.count(
+                        crossAxisCount: 2,
+                        children: domoticDevices
+                            .map((device) => CardDeviceWidget(
+                                  device: device,
+                                  onTap: viewModel.handleOnDeviceTap,
+                                ))
+                            .toList()),
+                  ],
+                ),
               ));
         }));
   }

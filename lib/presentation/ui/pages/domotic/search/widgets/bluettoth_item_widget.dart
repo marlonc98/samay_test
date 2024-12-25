@@ -30,13 +30,13 @@ class _BluettoothItemWidgetState extends State<BluettoothItemWidget> {
     });
     Either<ExceptionEntity, BluetoothDeviceEntity> response =
         await GetIt.I.get<ConnectDeviceUseCase>().call(widget.device);
-    if (response.isLeft) {
-      // ignore: use_build_context_synchronously
+    if (response.isLeft && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(response.left.message),
       ));
+      return;
     }
-    // ignore: use_build_context_synchronously
+    if (!mounted) return;
     Navigator.of(context).pushNamed(DetailedDevicePage.route,
         arguments: DetailedDevicePage(device: response.right));
     setState(() {

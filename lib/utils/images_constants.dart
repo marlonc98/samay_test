@@ -5,4 +5,5 @@ class ImagesConstants {
   static const String logo = 'assets/images/logo/logo.svg';
   static const String logoWhite = 'assets/images/logo/logo_white.svg';
   static const String bgProjectsPage = 'assets/images/bg_projects_page.jpg';
+  static const String tvTemp = 'assets/temp_images/tv.png';
 }

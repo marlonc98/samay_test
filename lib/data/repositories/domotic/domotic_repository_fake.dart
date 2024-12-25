@@ -78,14 +78,6 @@ class DomoticRepositoryFake extends DomoticRepository {
   }
 
   @override
-  Future<Either<ExceptionEntity, void>> removeBluetoothDevice(
-      BluetoothDeviceEntity device) async {
-    await Future.delayed(const Duration(seconds: 1));
-    await Future.delayed(const Duration(seconds: 1));
-    return const Right(null);
-  }
-
-  @override
   Future<Either<ExceptionEntity, void>> saveBluetoothDevice(
       BluetoothDeviceEntity device) async {
     await Future.delayed(const Duration(seconds: 1));
@@ -93,8 +85,8 @@ class DomoticRepositoryFake extends DomoticRepository {
   }
 
   @override
-  Future<Either<ExceptionEntity, List<BluetoothDevice>>>
-      searchBluetoothDevices() async {
+  Future<Either<ExceptionEntity, List<BluetoothDevice>>> searchBluetoothDevices(
+      Function(List<BluetoothDevice>) onCallBack) async {
     await Future.delayed(const Duration(seconds: 1));
     return Right([
       BluetoothDevice(remoteId: const DeviceIdentifier('12:12:56:78:90:AB')),

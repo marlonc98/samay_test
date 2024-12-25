@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:samay/domain/entities/bluetooth_device_entity.dart';
 import 'package:samay/domain/entities/exception_entity.dart';
@@ -28,14 +31,37 @@ class CardDeviceWidget extends StatefulWidget {
 }
 
 class _CardDeviceWidgetState extends State<CardDeviceWidget> {
+  late StreamSubscription<BluetoothConnectionState>? subsrcibe;
+  @override
+  void initState() {
+    _subscribeToConnectionState();
+    super.initState();
+  }
+
+  void _subscribeToConnectionState() {
+    subsrcibe = widget.device.deviceBluetooth?.connectionState.listen((state) {
+      if (state == BluetoothConnectionState.connected) {
+        widget.device.connected = true;
+      } else {
+        widget.device.connected = false;
+      }
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    subsrcibe?.cancel();
+    super.dispose();
+  }
+
   void turnDeviceOnOff(bool value) async {
     setState(() {
       widget.device.on = value;
     });
     Either<ExceptionEntity, void> result =
         await GetIt.I.get<ToggleOnDeviceUseCase>().call(widget.device, value);
-    if (result.isLeft) {
-      // ignore: use_build_context_synchronously
+    if (result.isLeft && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(result.left.message),
       ));
@@ -93,7 +119,7 @@ class _CardDeviceWidgetState extends State<CardDeviceWidget> {
                     overflow: TextOverflow.ellipsis,
                   )),
                   Switch(
-                    value: widget.device.on,
+                    value: widget.device.deviceBluetooth?.isConnected ?? false,
                     onChanged: turnDeviceOnOff,
                   )
                 ],

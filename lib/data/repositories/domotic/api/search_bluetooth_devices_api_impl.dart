@@ -12,21 +12,19 @@ Future<bool> checkBluetoothPermissions() async {
 }
 
 Future<Either<ExceptionEntity, List<BluetoothDevice>>>
-    searchBluetoothDevicesApiImpl() async {
+    searchBluetoothDevicesApiImpl(
+        Function(List<BluetoothDevice>) onCallBack) async {
+  print("searchBluetoothDevicesApiImpl start ");
   if (await FlutterBluePlus.isSupported == false) {
-    print(
-        "searchBluetoothDevicesApiImpl Bluetooth not supported by this device");
     return Left(
         ExceptionEntity(code: "Bluetooth not supported by this device"));
   }
   bool isGranted = await checkBluetoothPermissions();
   if (isGranted == false) {
-    print("searchBluetoothDevicesApiImpl Bluetooth permissions not granted");
     return Left(ExceptionEntity(code: "Bluetooth permissions not granted"));
   }
 
   if (await FlutterBluePlus.isOn == false) {
-    print("searchBluetoothDevicesApiImpl Bluetooth is off");
     return Left(ExceptionEntity(code: "Bluetooth is off"));
   }
 
@@ -35,16 +33,26 @@ Future<Either<ExceptionEntity, List<BluetoothDevice>>>
 
   // Listen to scan results
   FlutterBluePlus.scanResults.listen((results) {
-    print("searchBluetoothDevicesApiImpl Scan results: $results");
     for (var result in results) {
       // Avoid duplicates
       if (!devices.any((device) => device.id == result.device.id)) {
         devices.add(result.device);
+        result.device.connectionState.listen((BluetoothConnectionState st) {
+          print(
+              "Dispositivo leido: ${result.device.toString()} ${result.device.platformName}: ${result.advertisementData.toString()}");
+          result.device.servicesList.forEach((service) {
+            print(
+                "Dispositivo Servicio: ${service.uuid.toString()} ${service.characteristics.toString()}");
+          });
+          if (st == BluetoothConnectionState.connected) {
+            print(
+                "Dispositivo conectado: ${result.device.toString()} ${result.device.platformName}: ${result.advertisementData.toString()}");
+          }
+        });
       }
     }
-  }).onError((error, stackTrace) {
-    print("searchBluetoothDevicesApiImpl Scan error: $error");
-  });
+    onCallBack(devices);
+  }).onError((error, stackTrace) {});
 
   // Start scanning
   await FlutterBluePlus.startScan(
@@ -57,7 +65,6 @@ Future<Either<ExceptionEntity, List<BluetoothDevice>>>
   // Stop scanning
   await FlutterBluePlus.stopScan();
 
-  print("searchBluetoothDevicesApiImpl Devices found: ${devices.length}");
   return devices.isNotEmpty
       ? Right(devices)
       : Left(ExceptionEntity(code: "No devices found"));

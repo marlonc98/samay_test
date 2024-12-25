@@ -13,9 +13,10 @@ class SearchDevicesToConnectUseCase {
     required this.domoticState,
   });
 
-  Future<Either<ExceptionEntity, List<BluetoothDevice>>> call() async {
+  Future<Either<ExceptionEntity, List<BluetoothDevice>>> call(
+      Function(List<BluetoothDevice>) onCallBack) async {
     Either<ExceptionEntity, List<BluetoothDevice>> response =
-        await domoticRepository.searchBluetoothDevices();
+        await domoticRepository.searchBluetoothDevices(onCallBack);
     return response;
   }
 }
