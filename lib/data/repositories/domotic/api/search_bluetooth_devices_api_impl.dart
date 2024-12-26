@@ -5,6 +5,8 @@ import 'package:permission_handler/permission_handler.dart';
 
 Future<bool> checkBluetoothPermissions() async {
   if (await Permission.bluetoothScan.request().isGranted &&
+      await Permission.bluetooth.request().isGranted &&
+      await Permission.bluetoothAdvertise.request().isGranted &&
       await Permission.bluetoothConnect.request().isGranted) {
     return true;
   }
@@ -29,15 +31,22 @@ Future<Either<ExceptionEntity, List<BluetoothDevice>>>
   }
 
   // List to store devices found during the scan
-  List<BluetoothDevice> devices = [];
+  List<ScanResult> resultsSaved = [];
+
+  List<BluetoothDevice> devices() {
+    resultsSaved.sort((a, b) => b.rssi.compareTo(a.rssi));
+    return resultsSaved.map((result) => result.device).toList();
+  }
 
   // Listen to scan results
   FlutterBluePlus.scanResults.listen((results) {
     for (var result in results) {
       // Avoid duplicates
-      if (!devices.any((device) => device.id == result.device.id)) {
-        devices.add(result.device);
+      if (!resultsSaved
+          .any((resultSaved) => resultSaved.device.id == result.device.id)) {
+        resultsSaved.add(result);
         result.device.connectionState.listen((BluetoothConnectionState st) {
+          print("Dispositivo estado: ${result.advertisementData.toString()}");
           print(
               "Dispositivo leido: ${result.device.toString()} ${result.device.platformName}: ${result.advertisementData.toString()}");
           result.device.servicesList.forEach((service) {
@@ -51,8 +60,10 @@ Future<Either<ExceptionEntity, List<BluetoothDevice>>>
         });
       }
     }
-    onCallBack(devices);
+    onCallBack(devices());
   }).onError((error, stackTrace) {});
+
+  //order by
 
   // Start scanning
   await FlutterBluePlus.startScan(
@@ -65,7 +76,7 @@ Future<Either<ExceptionEntity, List<BluetoothDevice>>>
   // Stop scanning
   await FlutterBluePlus.stopScan();
 
-  return devices.isNotEmpty
-      ? Right(devices)
+  return devices().isNotEmpty
+      ? Right(devices())
       : Left(ExceptionEntity(code: "No devices found"));
 }

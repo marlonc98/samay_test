@@ -21,7 +21,10 @@ class NotFoundWidget extends StatelessWidget {
                 onPressed: () => Navigator.of(context).pop(),
                 child: Text(localization
                     .translate(KeyWordsConstants.notFoundWidgetGoBack))),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.4 - 300),
+            SizedBox(
+                height: (MediaQuery.of(context).size.height * 0.4 - 300) > 0
+                    ? (MediaQuery.of(context).size.height * 0.4 - 300)
+                    : 0),
           ],
         ),
       ),

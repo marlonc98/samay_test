@@ -23,7 +23,14 @@ class DetailedDevicePageViewModel extends ViewModel<DetailedDevicePage> {
     BluetoothCharacteristic? characteristic =
         await getCharacteristicWrite(widget.device.deviceBluetooth!);
     if (characteristic == null) return;
-    characteristic.write(utf8.encode(interaction));
+    print("DetailedDevicePageViewModel handleAddInteraction $interaction");
+    try {
+      await characteristic.write(utf8.encode(interaction));
+      print(
+          "DetailedDevicePageViewModel handleAddInteraction done $interaction");
+    } catch (e) {
+      print("DetailedDevicePageViewModel handleAddInteraction error $e");
+    }
     _addInteractionToList(interaction);
   }
 

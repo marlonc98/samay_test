@@ -18,6 +18,10 @@ class SearchDevicesPageViewModel extends ViewModel<SearchDevicesPage> {
   WaiterDataEntity<List<BluetoothDevice>> waiterDevices =
       WaiterDataEntity<List<BluetoothDevice>>();
 
+  Future<void> refresh() async {
+    searchDevices();
+  }
+
   Future<void> searchDevices() async {
     waiterDevices = WaiterDataEntity();
 
