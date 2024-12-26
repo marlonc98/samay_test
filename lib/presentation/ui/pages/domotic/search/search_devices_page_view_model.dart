@@ -32,6 +32,7 @@ class SearchDevicesPageViewModel extends ViewModel<SearchDevicesPage> {
     if (response.isLeft) {
       waiterDevices = WaiterDataEntity(status: WaiterDataEntityStatus.error);
       if (mounted) {
+        notifyListeners();
         // ignore: use_build_context_synchronously
         ShowModal.showSnackBar(context: context, text: response.left.code);
       }
