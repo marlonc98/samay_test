@@ -1,5 +1,6 @@
 import 'package:either_dart/either.dart';
 import 'package:flutter_blue_classic/flutter_blue_classic.dart';
+import 'package:get_it/get_it.dart';
 import 'package:samay/domain/entities/exception_entity.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -14,7 +15,7 @@ Future<bool> checkBluetoothPermissions() async {
 Future<Either<ExceptionEntity, List<BluetoothDevice>>>
     searchBluetoothDevicesApiImpl(
         Function(List<BluetoothDevice>) onCallBack) async {
-  final _flutterBlueClassicPlugin = FlutterBlueClassic();
+  final _flutterBlueClassicPlugin = GetIt.I.get<FlutterBlueClassic>();
   print("searchBluetoothDevicesApiImpl start ");
   if (await _flutterBlueClassicPlugin.isSupported == false) {
     return Left(

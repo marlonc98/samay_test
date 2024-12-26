@@ -34,11 +34,11 @@ class _BluettoothItemWidgetState extends State<BluettoothItemWidget> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(response.left.message),
       ));
-      return;
+    } else {
+      if (!mounted) return;
+      Navigator.of(context).pushNamed(DetailedDevicePage.route,
+          arguments: DetailedDevicePage(device: response.right));
     }
-    if (!mounted) return;
-    Navigator.of(context).pushNamed(DetailedDevicePage.route,
-        arguments: DetailedDevicePage(device: response.right));
     setState(() {
       connecting = false;
     });

@@ -19,7 +19,7 @@ Future<Either<ExceptionEntity, List<BluetoothDeviceEntity>>>
       Map<String, dynamic> asJson = jsonDecode(device);
       BluetoothDeviceEntity parsed = BluetoothDeviceFromSpDto.fromJSON(asJson);
       try {
-        // FlutterBlueClassic().connect(parsed.address);
+        // GetIt.I.get<FlutterBlueClassic>().connect(parsed.address);
       } catch (e) {
         print(
             "getSavedDevicesApiImpl error connecting to device: ${parsed.name} $e");

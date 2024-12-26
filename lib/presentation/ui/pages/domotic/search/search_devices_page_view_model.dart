@@ -43,6 +43,4 @@ class SearchDevicesPageViewModel extends ViewModel<SearchDevicesPage> {
       if (mounted) notifyListeners();
     }
   }
-
-  void connectDevice(BluetoothDevice device) {}
 }

@@ -1,3 +1,4 @@
+import 'package:flutter_blue_classic/flutter_blue_classic.dart';
 import 'package:get_it/get_it.dart';
 import 'package:samay/data/repositories/agency/agency_repository_fake.dart';
 import 'package:samay/data/repositories/domotic/domotic_repository_dev.dart';
@@ -53,6 +54,9 @@ class DependencyInjection {
           LocalizationRepositoryImpl());
     }
     //#endregion repositories
+
+    getIt.registerSingleton<FlutterBlueClassic>(
+        FlutterBlueClassic(usesFineLocation: true));
 
     //#region ------------- providers -------------------------//
     getIt.registerSingleton<AgencyState>(AgencyStateImpl());
