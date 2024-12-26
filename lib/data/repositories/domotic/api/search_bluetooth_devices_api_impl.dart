@@ -35,7 +35,11 @@ Future<Either<ExceptionEntity, List<BluetoothDevice>>>
 
   List<BluetoothDevice> devices() {
     resultsSaved.sort((a, b) => b.rssi.compareTo(a.rssi));
-    return resultsSaved.map((result) => result.device).toList();
+    return resultsSaved
+        .map((result) => result.device)
+        .where((device) =>
+            device.advName.isNotEmpty || device.platformName.isNotEmpty)
+        .toList();
   }
 
   // Listen to scan results
