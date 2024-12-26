@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:either_dart/either.dart';
 import 'package:flutter_blue_classic/flutter_blue_classic.dart';
+import 'package:get_it/get_it.dart';
 import 'package:samay/data/dto/bluetooth_device_from_sp_dto.dart';
 import 'package:samay/domain/entities/bluetooth_device_entity.dart';
 import 'package:samay/domain/entities/exception_entity.dart';
@@ -9,6 +10,25 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Future<Either<ExceptionEntity, List<BluetoothDeviceEntity>>>
     getSavedDevicesApiImpl(String fileName) async {
+  try {
+    List<BluetoothDevice>? devices =
+        await GetIt.I.get<FlutterBlueClassic>().bondedDevices;
+    if (devices == null) {
+      return Left(ExceptionEntity(code: "No devices found"));
+    }
+    List<BluetoothDeviceEntity> connectedDevices = [];
+    for (BluetoothDevice device in devices) {
+      connectedDevices.add(BluetoothDeviceEntity(
+          name: device.name ?? "Unknown",
+          address: device.address,
+          on: device.bondState == BluetoothBondState.bonded));
+    }
+    return Right(connectedDevices);
+  } catch (e) {
+    print("getSavedDevicesApiImpl Error getting saved devices: $e");
+    return Left(ExceptionEntity.fromException(e));
+  }
+
   try {
     List<String> spDevices = [];
     SharedPreferences sp = await SharedPreferences.getInstance();

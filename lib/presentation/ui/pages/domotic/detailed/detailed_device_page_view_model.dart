@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_classic/flutter_blue_classic.dart';
+import 'package:get_it/get_it.dart';
 import 'package:samay/presentation/ui/pages/domotic/detailed/detailed_device_page.dart';
 import 'package:samay/presentation/ui/pages/view_model.dart';
 
@@ -19,12 +20,17 @@ class DetailedDevicePageViewModel extends ViewModel<DetailedDevicePage> {
   }
 
   void handleAddInteraction(String interaction) async {
-    // if (interaction.isEmpty) return;
-    // BluetoothCharacteristic? characteristic =
-    //     await getCharacteristicWrite(widget.device.deviceBluetooth!);
-    // if (characteristic == null) return;
-    // characteristic.write(utf8.encode(interaction));
-    _addInteractionToList(interaction);
+    if (interaction.isEmpty) return;
+    try {
+      BluetoothConnection? bt = await GetIt.I
+          .get<FlutterBlueClassic>()
+          .connect(widget.device.address);
+      print("DetailedDevicePageViewModel bt $bt");
+      bt?.output.add(utf8.encode(interaction));
+      _addInteractionToList(interaction);
+    } catch (e) {
+      print("DetailedDevicePageViewModel handleAddInteraction error $e");
+    }
   }
 
   // Future<BluetoothCharacteristic?> getCharacteristicWrite(

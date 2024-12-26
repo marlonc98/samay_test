@@ -45,7 +45,8 @@ Future<Either<ExceptionEntity, List<BluetoothDevice>>>
     } catch (e) {
       print(e);
     }
-    onCallBack(devices);
+    onCallBack(
+        devices.where((element) => element.name?.isNotEmpty ?? false).toList());
   }).onError((error, stackTrace) {});
 
   // Start scanning
@@ -58,6 +59,8 @@ Future<Either<ExceptionEntity, List<BluetoothDevice>>>
   _flutterBlueClassicPlugin.stopScan();
 
   return devices.isNotEmpty
-      ? Right(devices)
+      ? Right(devices
+          .where((element) => element.name?.isNotEmpty ?? false)
+          .toList())
       : Left(ExceptionEntity(code: "No devices found"));
 }
