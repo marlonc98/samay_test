@@ -1,4 +1,4 @@
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:flutter_blue_classic/flutter_blue_classic.dart';
 import 'package:samay/domain/entities/bluetooth_device_entity.dart';
 
 class BluetoothDeviceFromSpDto {
@@ -15,7 +15,7 @@ class BluetoothDeviceFromSpDto {
       name: json['name'],
       address: json['address'],
       imageUrl: json['imageUrl'],
-      deviceBluetooth: BluetoothDevice.fromId(json["address"]),
+      // deviceBluetooth: BluetoothDevice.fromId(json["address"]),
     );
   }
 }

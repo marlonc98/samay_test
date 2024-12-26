@@ -1,4 +1,4 @@
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:flutter_blue_classic/flutter_blue_classic.dart';
 
 class BluetoothDeviceEntity {
   String name;

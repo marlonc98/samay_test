@@ -1,5 +1,5 @@
 import 'package:either_dart/either.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:flutter_blue_classic/flutter_blue_classic.dart';
 import 'package:samay/data/repositories/domotic/api/connect_bluetooth_device_api_impl.dart';
 import 'package:samay/data/repositories/domotic/api/get_saved_devices_api_impl.dart';
 import 'package:samay/data/repositories/domotic/api/save_connected_bluetooth_api_impl.dart';

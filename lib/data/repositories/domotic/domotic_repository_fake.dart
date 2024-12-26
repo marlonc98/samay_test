@@ -1,5 +1,5 @@
 import 'package:either_dart/either.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:flutter_blue_classic/flutter_blue_classic.dart';
 import 'package:samay/domain/entities/bluetooth_device_entity.dart';
 import 'package:samay/domain/entities/exception_entity.dart';
 import 'package:samay/domain/repositories/domotic_repository.dart';
@@ -88,16 +88,7 @@ class DomoticRepositoryFake extends DomoticRepository {
   Future<Either<ExceptionEntity, List<BluetoothDevice>>> searchBluetoothDevices(
       Function(List<BluetoothDevice>) onCallBack) async {
     await Future.delayed(const Duration(seconds: 1));
-    return Right([
-      BluetoothDevice(remoteId: const DeviceIdentifier('12:12:56:78:90:AB')),
-      BluetoothDevice(remoteId: const DeviceIdentifier('12:23:56:78:90:AB')),
-      BluetoothDevice(remoteId: const DeviceIdentifier('12:34:56:78:90:AB')),
-      BluetoothDevice(remoteId: const DeviceIdentifier('12:45:56:78:90:AB')),
-      BluetoothDevice(remoteId: const DeviceIdentifier('12:45:56:78:90:AB')),
-      BluetoothDevice(remoteId: const DeviceIdentifier('12:45:56:78:90:AB')),
-      BluetoothDevice(remoteId: const DeviceIdentifier('12:45:56:78:90:AB')),
-      BluetoothDevice(remoteId: const DeviceIdentifier('12:45:56:78:90:AB')),
-    ]);
+    return Right([]);
   }
 
   @override

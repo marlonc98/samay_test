@@ -1,6 +1,6 @@
 import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:flutter_blue_classic/flutter_blue_classic.dart';
 import 'package:get_it/get_it.dart';
 import 'package:samay/domain/entities/bluetooth_device_entity.dart';
 import 'package:samay/domain/entities/exception_entity.dart';
@@ -54,17 +54,15 @@ class _BluettoothItemWidgetState extends State<BluettoothItemWidget> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              widget.device.platformName.isNotEmpty
-                  ? widget.device.platformName
-                  : widget.device.advName.isNotEmpty
-                      ? widget.device.advName
-                      : "Unknown device",
+              widget.device.name != null && widget.device.name!.isNotEmpty
+                  ? widget.device.name!
+                  : "Unknown device",
             ),
-            Text(widget.device.isConnected ? "Connected" : ""),
+            // Text(widget.device.isConnected ? "Connected" : ""),
           ],
         ),
         trailing: connecting ? const CircularProgressIndicator() : null,
-        subtitle: Text(widget.device.remoteId.toString()),
+        subtitle: Text(widget.device.address.toString()),
         onTap: () => handleOnDeviceTap(),
       ),
     );

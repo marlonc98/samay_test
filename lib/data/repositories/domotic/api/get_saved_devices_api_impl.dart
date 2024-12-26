@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:either_dart/either.dart';
+import 'package:flutter_blue_classic/flutter_blue_classic.dart';
 import 'package:samay/data/dto/bluetooth_device_from_sp_dto.dart';
 import 'package:samay/domain/entities/bluetooth_device_entity.dart';
 import 'package:samay/domain/entities/exception_entity.dart';
@@ -18,11 +19,7 @@ Future<Either<ExceptionEntity, List<BluetoothDeviceEntity>>>
       Map<String, dynamic> asJson = jsonDecode(device);
       BluetoothDeviceEntity parsed = BluetoothDeviceFromSpDto.fromJSON(asJson);
       try {
-        if (parsed.deviceBluetooth?.isConnected == false) {
-          parsed.deviceBluetooth?.connect(autoConnect: true, mtu: null);
-        }
-        print(
-            "getSavedDevicesApiImpl Connected to device: ${parsed.deviceBluetooth?.platformName} ${parsed.deviceBluetooth?.remoteId} connected: ${parsed.deviceBluetooth?.isConnected}");
+        // FlutterBlueClassic().connect(parsed.address);
       } catch (e) {
         print(
             "getSavedDevicesApiImpl error connecting to device: ${parsed.name} $e");

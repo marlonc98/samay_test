@@ -1,5 +1,5 @@
 import 'package:either_dart/either.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:flutter_blue_classic/flutter_blue_classic.dart';
 import 'package:samay/domain/entities/exception_entity.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -14,8 +14,9 @@ Future<bool> checkBluetoothPermissions() async {
 Future<Either<ExceptionEntity, List<BluetoothDevice>>>
     searchBluetoothDevicesApiImpl(
         Function(List<BluetoothDevice>) onCallBack) async {
+  final _flutterBlueClassicPlugin = FlutterBlueClassic();
   print("searchBluetoothDevicesApiImpl start ");
-  if (await FlutterBluePlus.isSupported == false) {
+  if (await _flutterBlueClassicPlugin.isSupported == false) {
     return Left(
         ExceptionEntity(code: "Bluetooth not supported by this device"));
   }
@@ -24,7 +25,7 @@ Future<Either<ExceptionEntity, List<BluetoothDevice>>>
     return Left(ExceptionEntity(code: "Bluetooth permissions not granted"));
   }
 
-  if (await FlutterBluePlus.isOn == false) {
+  if (await _flutterBlueClassicPlugin.isEnabled == false) {
     return Left(ExceptionEntity(code: "Bluetooth is off"));
   }
 
@@ -32,38 +33,28 @@ Future<Either<ExceptionEntity, List<BluetoothDevice>>>
   List<BluetoothDevice> devices = [];
 
   // Listen to scan results
-  FlutterBluePlus.scanResults.listen((results) {
-    for (var result in results) {
-      // Avoid duplicates
-      if (!devices.any((device) => device.id == result.device.id)) {
-        devices.add(result.device);
-        result.device.connectionState.listen((BluetoothConnectionState st) {
-          print(
-              "Dispositivo leido: ${result.device.toString()} ${result.device.platformName}: ${result.advertisementData.toString()}");
-          result.device.servicesList.forEach((service) {
-            print(
-                "Dispositivo Servicio: ${service.uuid.toString()} ${service.characteristics.toString()}");
-          });
-          if (st == BluetoothConnectionState.connected) {
-            print(
-                "Dispositivo conectado: ${result.device.toString()} ${result.device.platformName}: ${result.advertisementData.toString()}");
-          }
-        });
-      }
+  _flutterBlueClassicPlugin.scanResults.listen((device) {
+    // Avoid duplicates
+    if (!devices.any((element) => element.address == device.address)) {
+      devices.add(device);
+    }
+    try {
+      print(
+          "searchBluetoothDevicesApiImpl device: ${device.type} ${device.toString()}");
+    } catch (e) {
+      print(e);
     }
     onCallBack(devices);
   }).onError((error, stackTrace) {});
 
   // Start scanning
-  await FlutterBluePlus.startScan(
-    timeout: const Duration(seconds: 15), // Stop scanning after 15 seconds
-  );
+  _flutterBlueClassicPlugin.startScan(); // Stop scanning after 15 seconds
 
   // Wait for the scan to complete
   await Future.delayed(const Duration(seconds: 15));
 
   // Stop scanning
-  await FlutterBluePlus.stopScan();
+  _flutterBlueClassicPlugin.stopScan();
 
   return devices.isNotEmpty
       ? Right(devices)

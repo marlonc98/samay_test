@@ -1,5 +1,5 @@
 import 'package:either_dart/either.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:flutter_blue_classic/flutter_blue_classic.dart';
 import 'package:samay/domain/entities/exception_entity.dart';
 import 'package:samay/domain/entities/waiter_data_entity.dart';
 import 'package:samay/domain/use_cases/domotic/search_devices_to_connect_use_case.dart';

@@ -83,8 +83,8 @@ class DetailedDevicePage extends StatelessWidget {
                               enabledBorder: InputBorder.none,
                             ),
                             controller: viewModel.interactionController,
-                            enabled:
-                                device.deviceBluetooth?.isConnected ?? false,
+                            // enabled:
+                            //     device.deviceBluetooth?.isConnected ?? false,
                             onSubmitted: (value) {
                               viewModel.handleAddInteraction(value);
                             },
