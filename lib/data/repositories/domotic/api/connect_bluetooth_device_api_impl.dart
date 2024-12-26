@@ -8,12 +8,15 @@ import 'package:samay/utils/images_constants.dart';
 Future<Either<ExceptionEntity, BluetoothDeviceEntity>>
     connectBluetoothDeviceApiImpl(BluetoothDevice device) async {
   try {
-    print(
-        "connectBluetoothDeviceApiImpl Connecting to device: ${device.address}");
     await GetIt.I.get<FlutterBlueClassic>().connect(device.address);
-    print(
-        "connectBluetoothDeviceApiImpl Connecting to device: v ${device.address}");
-    await GetIt.I.get<FlutterBlueClassic>().connect(device.address);
+    BluetoothConnection? connection =
+        await GetIt.I.get<FlutterBlueClassic>().connect(device.address);
+    connection?.input?.listen((event) {
+      print("connectBluetoothDeviceApiImpl event: $event");
+      //convert event to string
+      String data = String.fromCharCodes(event);
+      print("connectBluetoothDeviceApiImpl data: $data");
+    });
     BluetoothDeviceEntity parsed = BluetoothDeviceEntity(
       name: device.name ?? "Unknown",
       address: device.address,
