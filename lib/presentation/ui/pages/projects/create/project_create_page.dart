@@ -135,8 +135,8 @@ class ProjectCreatePage extends StatelessWidget {
                         onChange: (value) => viewModel.valuesForm[
                                 KeyWordsConstants.projectCreatePageImageField] =
                             value,
-                        // validator: (val) => Validators.check(
-                        //     text: val, context: context, required: true),
+                        validator: (val) => Validators.check(
+                            text: val, context: context, required: true),
                         title: viewModel.localization.translate(
                             KeyWordsConstants.projectCreatePageImageField)),
                     const SizedBox(

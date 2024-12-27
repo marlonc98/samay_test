@@ -104,8 +104,8 @@ class ProjectDetailedPage extends StatelessWidget {
                         children: [
                           const SizedBox(height: 8),
                           Text(
-                            viewModel.localization.translate(
-                                KeyWordsConstants.projectDetailedPageHome),
+                            viewModel.projectWaiterDataEntity.data!.name
+                                .toUpperCase(),
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium

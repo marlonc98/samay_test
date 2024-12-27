@@ -51,7 +51,7 @@ class DbSetting {
       final path = join(await getDatabasesPath(), dbName);
       db = await openDatabase(path, version: 1);
     } catch (e) {
-      rethrow;
+      // ignore: avoid_print
     }
   }
 
@@ -60,7 +60,6 @@ class DbSetting {
       // await deleteDatabaseFile(); //Uncomment this line to delete the database file
       await openDatabaseFromAssets();
       await readDatabase();
-      await db.rawQuery("SELECT name FROM sqlite_master WHERE type='table'");
     } catch (e) {
       rethrow;
     }

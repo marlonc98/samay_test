@@ -46,9 +46,13 @@
     <key>UIApplicationSupportsIndirectInputEvents</key>
     <true/>
     <key>NSBluetoothAlwaysUsageDescription</key>
-<string>Necesitamos acceso al Bluetooth para buscar dispositivos.</string>
+<string>We use bluetooth to connect the smart things</string>
 <key>NSLocationWhenInUseUsageDescription</key>
-<string>Necesitamos acceso a la ubicación para escanear dispositivos Bluetooth.</string>
+<string>We need bluetooth to connect the smart things </string>
+<key>NSPhotoLibraryUsageDescription</key>
+<string>We need access to your photo library to upload files of the projects</string>
+<key>NSCameraUsageDescription</key>
+<string>We need access to your your camera to pick and upload files of the projects</string>
 
   </dict>
 </plist>

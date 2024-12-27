@@ -43,6 +43,8 @@ class KeyWordsConstants {
   static const String projectDetailedPageTaxes = "projectDetailedPageTaxes";
   static const String projectDetailedPageContact = "projectDetailedPageContact";
 
+  static const String projectPageAddProject = "projectPageAddProject";
+
   //#region API
   static const String domoticApiErrorNoCharacteristic =
       "domoticApiErrorNoCharacteristic";
@@ -99,5 +101,22 @@ class KeyWordsConstants {
   static const String cameraPickerWidgetCamera = "cameraPickerWidgetCamera";
   static const String cameraPickerWidgetGallery = "cameraPickerWidgetGallery";
 
+  static const String bannerProjectSearcherWidgetWelcome =
+      "bannerProjectSearcherWidgetWelcome";
+  static const String bannerProjectSearcherWidgetfindYourDreams =
+      "bannerProjectSearcherWidgetfindYourDreams";
+  static const String bannerProjectSearcherWidgetSearch =
+      "bannerProjectSearcherWidgetSearch";
+
+  static const String dropdownAgenciesWidgetSelectAgency =
+      "dropdownAgenciesWidgetSelectAgency";
+
+  static const String filterProjectWidgetTitle = "filterProjectWidgetTitle";
+  static const String filterProjectWidgetLocation =
+      "filterProjectWidgetLocation";
+  static const String filterProjectWidgetPrice = "filterProjectWidgetPrice";
+  static const String filterProjectWidgetMin = "filterProjectWidgetMin";
+  static const String filterProjectWidgetMax = "filterProjectWidgetMax";
+  static const String filterProjectWidgetFilter = "filterProjectWidgetFilter";
   //#endregion Widgets
 }

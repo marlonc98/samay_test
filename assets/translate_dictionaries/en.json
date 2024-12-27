@@ -4,9 +4,6 @@
     "update": "Update",
     "accept": "Accept",
 
-    "notFoundWidgetNotResults": "No results found",
-    "notFoundWidgetGoBack": "Go Back",
-
     "splashPageTitle": "UpHomes",
     "splashPageVersion": "V 1.0.1",
 
@@ -21,12 +18,22 @@
     "projectCreatePagePriceHint": "$ Price",
     "projectCreatePageDescriptionField": "DESCRIPTION",
     "projectCreatePageDescriptionHint": "Neighborhood or city...",
-    
-    "cameraPickerWidgetTitle": "Select a photo",
-    "cameraPickerWidgetText": "Choose a photo from your gallery or take a new one",
-    "cameraPickerWidgetCamera": "Camera",
-    "cameraPickerWidgetGallery": "Gallery",
+    "projectCreatePageProjectecUpdatedSuccesfully": "Project updated successfully",
+    "projectCreatePageProjectecCreatedSuccesfully": "Project created successfully",
 
+    "connectedDevicesPageTitle": "known Devices",
+
+    "detailedDevicePageNoInteractions": "No historical interactions",
+
+    "searchDevicesPageTitle": "Search Devices",
+
+    "projectDetailedPageHome": "Home",
+    "projectDetailedPageDescription": "DESCRIPTION",
+    "projectDetailedPageTaxes": "+ taxes/fees",
+    "projectDetailedPageContact": "Contact",
+
+    "projectPageAddProject": "Add Project",
+    
     "-------- API --------": "-------- API --------",
     "domoticApiErrorNoCharacteristic": "No data services found on device",
     "domoticApiErrorWritingCharacteristic": "Error sending data",
@@ -49,5 +56,56 @@
     "agencyApiErrorGetAllAgencies": "No agencies found",
 
     "unknownError": "An error occurred",
-    "-------- END API --------": "-------- END API --------"
+    "-------- END API --------": "-------- END API --------",
+
+    "-------- WIDGETS --------": "-------- WIDGETS --------",
+    "cardDeviceWidgetTurnOn": "Turn On",
+    "cardDeviceWidgetTurnOff": "Turn Off",
+    "cardDeviceWidgetNoName": "No name",
+
+    "notFoundWidgetNotResults": "No results found",
+    "notFoundWidgetGoBack": "Go Back",
+
+    "bluetoothItemWidgetUnknown": "Unknown",
+    "bluetoothItemWidgeConnected": "Connected",
+
+    "cameraPickerWidgetTitle": "Select a photo",
+    "cameraPickerWidgetText": "Choose a photo from your gallery or take a new one",
+    "cameraPickerWidgetCamera": "Camera",
+    "cameraPickerWidgetGallery": "Gallery",
+
+    "bannerProjectSearcherWidgetWelcome": "Welcome!",
+    "bannerProjectSearcherWidgetfindYourDreams": "Find your Dream Space",
+    "bannerProjectSearcherWidgetSearch": "Search",
+
+    "dropdownAgenciesWidgetSelectAgency": "Select an agency",
+
+    "filterProjectWidgetTitle": "Filter Projects",
+    "filterProjectWidgetLocation": "Location",
+    "filterProjectWidgetPrice": "Price",
+    "filterProjectWidgetMin": "Min",
+    "filterProjectWidgetMax": "Max",
+    "filterProjectWidgetFilter": "Apply filter",
+    "-------- END WIDGETS --------": "-------- END WIDGETS --------",
+
+    "------------------validators---------------------":"",
+    "validatorRequired": "This field is required",
+    "validatorEmail": "The email is invalid",
+    "validatorMatchField": "Not match with field \"{fieldName}\"",
+    "validatorMinlength": "The min length is {minLength}",
+    "validatorMaxLength": "The max length is {maxLength}",
+    "validatorMinArraylength": "You must select almost {minLength} options",
+    "validatorMinValue": "The min value is {minValue}",
+    "validatorMaxValue": "The max value is {maxValue}",
+    "validatorIsNotNumber": "The value is not a number",
+    "validatorIsNotDouble": "The value is not a double",
+    "validatorInvalid": "The value is invalid",
+    "validatorRequiresLowercase": "Lowercase letter required",
+    "validatorRequiresUppercase": "Uppercase letter required",
+    "validatorRequiresNumber": "Numbers are required",
+    "validatorCustomNoPhone": "The phone field needs dial and number, for example +1 3000000",
+    "validatorCustomRequiresSpecialCharacter": "The field requires at least one special character",
+    "validatorCustomNoName": "Please insert a valid name",
+    "validatorNotSpecialCharacters": "The field can't have special characters",
+    "validatorNotNumber": "The field can't have numbers"
 }

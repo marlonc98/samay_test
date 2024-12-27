@@ -6,11 +6,10 @@ import 'package:samay/domain/entities/exception_entity.dart';
 import 'package:samay/domain/repositories/agency_respository.dart';
 
 AgencyEntity fakeAgency = AgencyEntity(
-  id: '1',
-  name: 'Fake Agency',
-  hexColor: 'FF0000',
-  logo:
-      'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/agency-logo-design-template-63d79adb61b0737cf1c996c9ce6661e0_screen.jpg?ts=1677711623',
+  id: '2001',
+  name: 'Home solutions',
+  hexColor: 'efbe46',
+  logo: 'assets/temp_images/agency1.png',
   aditionalFields: [
     AditionalFieldEntity(
         name: "Certificates",
@@ -30,19 +29,50 @@ AgencyEntity fakeAgency = AgencyEntity(
   ],
 );
 
+AgencyEntity fakeAgent2 = AgencyEntity(
+    id: "2002",
+    name: "Home company",
+    hexColor: "668638",
+    logo: "assets/temp_images/agency2.png",
+    aditionalFields: [
+      AditionalFieldEntity(
+          name: "Built Year",
+          type: AditionalFielType.number,
+          value: "2021",
+          hint: "1999..."),
+    ]);
+
+AgencyEntity fakeAgent3 = AgencyEntity(
+  id: "2003",
+  name: "House marketing",
+  hexColor: "26fc00",
+  logo: "assets/temp_images/agency3.png",
+  aditionalFields: [
+    AditionalFieldEntity(
+        name: "Certificates",
+        type: AditionalFielType.text,
+        hint: "ISO ...",
+        value: "ISO 121212, ISO 121212"),
+  ],
+);
+
 class AgencyRepositoryFake extends AgencyRepository {
   @override
   Future<Either<ExceptionEntity, AgencyEntity?>> loadSelectedAgent() async {
     await Future.delayed(const Duration(seconds: 1));
-    return Right(fakeAgency);
-    // return const Right(null);
+    // return Right(fakeAgency);
+    return const Right(null);
   }
 
   @override
   Future<Either<ExceptionEntity, List<AgencyEntity>>> getAllAgents() async {
     await Future.delayed(const Duration(seconds: 1));
     const totalToReturn = 10;
-    List<AgencyEntity> agencies = [];
+    List<AgencyEntity> agencies = [
+      fakeAgency,
+      fakeAgent2,
+      fakeAgent3,
+    ];
     //get random hex color for testing
     String toHex(int value) {
       return value.toRadixString(16).padLeft(2, '0');
@@ -65,7 +95,7 @@ class AgencyRepositoryFake extends AgencyRepository {
       final String randomHex = getRandomHexColor();
       agencies.add(AgencyEntity(
           id: i.toString(),
-          name: fakeAgency.name + randomHex,
+          name: "Random Agency",
           logo: fakeAgency.logo,
           hexColor: randomHex,
           aditionalFields: fakeAgency.aditionalFields));

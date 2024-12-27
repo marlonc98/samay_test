@@ -5,9 +5,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:samay/domain/entities/agency_entity.dart';
 import 'package:samay/domain/entities/project_filter_entity.dart';
+import 'package:samay/domain/states/agency_state.dart';
 import 'package:samay/domain/states/localization_state.dart';
 import 'package:samay/presentation/ui/pages/projects/list/widgets/dropdown_agencies_widget.dart';
 import 'package:samay/presentation/ui/pages/projects/list/widgets/filter_project_widget.dart';
+import 'package:samay/presentation/ui/widgets/image_network_with_load_widget.dart';
 import 'package:samay/utils/images_constants.dart';
 import 'package:samay/utils/key_words_constants.dart';
 
@@ -68,6 +70,7 @@ class _SearchProjectWidgetState extends State<BannerProjectSearcherWidget> {
   @override
   SliverAppBar build(BuildContext context) {
     final localization = Provider.of<LocalizationState>(context);
+    final agencyState = Provider.of<AgencyState>(context);
     return SliverAppBar(
       expandedHeight: _calculateLimitExpanded(context),
       collapsedHeight: 100,
@@ -101,10 +104,16 @@ class _SearchProjectWidgetState extends State<BannerProjectSearcherWidget> {
                   const SizedBox(
                     height: 10,
                   ),
-                  SvgPicture.asset(
-                    ImagesConstants.logoWhite,
-                    height: 50,
-                  ),
+                  agencyState.selectedAgency != null
+                      ? ImageNetworkWithLoadWidget(
+                          agencyState.selectedAgency!.logo,
+                          height: 70,
+                          fit: BoxFit.fitHeight,
+                        )
+                      : SvgPicture.asset(
+                          ImagesConstants.logoWhite,
+                          height: 50,
+                        ),
                   Text(
                     localization.translate(
                         KeyWordsConstants.bannerProjectSearcherWidgetWelcome),
