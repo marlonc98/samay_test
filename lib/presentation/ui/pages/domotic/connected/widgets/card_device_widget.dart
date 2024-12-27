@@ -6,7 +6,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:samay/domain/entities/bluetooth_device_entity.dart';
 import 'package:samay/domain/entities/exception_entity.dart';
-import 'package:samay/domain/use_cases/domotic/toggle_on_device_use_case.dart';
+import 'package:samay/domain/use_cases/domotic/add_interaction_device_use_case.dart';
 import 'package:samay/presentation/ui/widgets/image_network_with_load_widget.dart';
 import 'package:samay/utils/images_constants.dart';
 
@@ -31,41 +31,28 @@ class CardDeviceWidget extends StatefulWidget {
 }
 
 class _CardDeviceWidgetState extends State<CardDeviceWidget> {
-  late StreamSubscription<BluetoothConnectionState>? subsrcibe;
-  @override
-  void initState() {
-    _subscribeToConnectionState();
-    super.initState();
-  }
-
-  void _subscribeToConnectionState() {
-    subsrcibe = widget.device.deviceBluetooth?.connectionState.listen((state) {
-      if (state == BluetoothConnectionState.connected) {
-        widget.device.connected = true;
-      } else {
-        widget.device.connected = false;
-      }
-      setState(() {});
-    });
-  }
-
-  @override
-  void dispose() {
-    subsrcibe?.cancel();
-    super.dispose();
-  }
-
   void turnDeviceOnOff(bool value) async {
-    setState(() {
-      widget.device.on = value;
-    });
-    Either<ExceptionEntity, void> result =
-        await GetIt.I.get<ToggleOnDeviceUseCase>().call(widget.device, value);
+    Either<ExceptionEntity, void> result = await GetIt.I
+        .get<AddInteractionDeviceUseCase>()
+        .call(widget.device, value ? "Turn On" : "Turn Off");
     if (result.isLeft && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(result.left.message),
       ));
     }
+  }
+
+  @override
+  void initState() {
+    _checkConnection();
+    super.initState();
+  }
+
+  void _checkConnection() {
+    widget.device.deviceBluetooth?.connectionState
+        .listen((BluetoothConnectionState st) {
+      if (mounted) setState(() {});
+    });
   }
 
   @override
@@ -115,13 +102,16 @@ class _CardDeviceWidgetState extends State<CardDeviceWidget> {
                 children: [
                   Expanded(
                       child: Text(
-                    widget.device.name,
+                    widget.device.name.isEmpty ? "No name" : widget.device.name,
                     overflow: TextOverflow.ellipsis,
                   )),
-                  Switch(
-                    value: widget.device.deviceBluetooth?.isConnected ?? false,
-                    onChanged: turnDeviceOnOff,
-                  )
+                  StreamBuilder(
+                      stream: widget.device.deviceBluetooth?.connectionState,
+                      builder: (context, snapshot) => Switch(
+                            value: snapshot.data ==
+                                BluetoothConnectionState.connected,
+                            onChanged: turnDeviceOnOff,
+                          )),
                 ],
               ),
             )

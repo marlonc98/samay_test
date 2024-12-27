@@ -39,7 +39,7 @@ class DomoticRepositoryFake extends DomoticRepository {
 
   @override
   Future<Either<ExceptionEntity, void>> disconnectBluetoothDevice(
-      BluetoothDevice device) async {
+      BluetoothDeviceEntity device) async {
     await Future.delayed(const Duration(seconds: 1));
     return const Right(null);
   }
@@ -71,7 +71,7 @@ class DomoticRepositoryFake extends DomoticRepository {
 
   @override
   Future<Either<ExceptionEntity, void>> listenBluetoothDeviceData(
-      BluetoothDevice device, Function onData) async {
+      BluetoothDeviceEntity device, Function onData) async {
     await Future.delayed(const Duration(seconds: 1));
     onData("Data received");
     return const Right(null);
@@ -101,8 +101,8 @@ class DomoticRepositoryFake extends DomoticRepository {
   }
 
   @override
-  Future<Either<ExceptionEntity, void>> turnOfOnDevice(
-      BluetoothDeviceEntity device, bool on) async {
+  Future<Either<ExceptionEntity, void>> addInteraction(
+      BluetoothDeviceEntity device, String interaction) async {
     await Future.delayed(const Duration(seconds: 1));
     return const Right(null);
   }

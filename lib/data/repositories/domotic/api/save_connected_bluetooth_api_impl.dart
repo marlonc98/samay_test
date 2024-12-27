@@ -9,7 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 Future<Either<ExceptionEntity, void>> saveConnectedBluetoothApiImpl(
     BluetoothDeviceEntity device, String fileName) async {
   try {
-    print("saveConnectedBluetoothApiImpl $device");
     SharedPreferences sp = await SharedPreferences.getInstance();
     List<String> devices = sp.getStringList(fileName) ?? [];
     Map<String, dynamic> asJson = BluetoothDeviceFromSpDto.toJSON(device);
@@ -21,11 +20,9 @@ Future<Either<ExceptionEntity, void>> saveConnectedBluetoothApiImpl(
       return const Right(null);
     }
     devices.add(asString);
-    print("saveConnectedBluetoothApiImpl $device");
     await sp.setStringList(fileName, devices);
     return const Right(null);
   } catch (e) {
-    print("saveConnectedBluetoothApiImpl Error saving device: $e");
     return Left(ExceptionEntity.fromException(e));
   }
 }

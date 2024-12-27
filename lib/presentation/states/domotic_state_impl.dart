@@ -13,4 +13,14 @@ class DomoticStateImpl extends DomoticState {
 
   @override
   void notify() => notifyListeners();
+
+  @override
+  void modifyOnDevice(BluetoothDeviceEntity device) {
+    final index = _knwonDevices
+        .indexWhere((element) => element.address == device.address);
+    if (index != -1) {
+      _knwonDevices[index] = device;
+      notifyListeners();
+    }
+  }
 }

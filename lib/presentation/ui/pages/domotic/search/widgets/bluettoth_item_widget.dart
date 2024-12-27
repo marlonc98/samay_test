@@ -34,6 +34,9 @@ class _BluettoothItemWidgetState extends State<BluettoothItemWidget> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(response.left.message),
       ));
+      setState(() {
+        connecting = false;
+      });
       return;
     }
     if (!mounted) return;
@@ -60,7 +63,12 @@ class _BluettoothItemWidgetState extends State<BluettoothItemWidget> {
                       ? widget.device.advName
                       : "Unknown device",
             ),
-            Text(widget.device.isConnected ? "Connected" : ""),
+            StreamBuilder(
+                stream: widget.device.connectionState,
+                builder: (context, snapshot) => Text(
+                    snapshot.data == BluetoothConnectionState.connected
+                        ? "Connected"
+                        : "")),
           ],
         ),
         trailing: connecting ? const CircularProgressIndicator() : null,

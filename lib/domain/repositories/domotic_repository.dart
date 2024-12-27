@@ -13,9 +13,9 @@ abstract class DomoticRepository {
   Future<Either<ExceptionEntity, BluetoothDeviceEntity>> connectBluetoothDevice(
       BluetoothDevice device);
   Future<Either<ExceptionEntity, void>> disconnectBluetoothDevice(
-      BluetoothDevice device);
-  Future<Either<ExceptionEntity, void>> turnOfOnDevice(
-      BluetoothDeviceEntity device, bool on);
+      BluetoothDeviceEntity device);
+  Future<Either<ExceptionEntity, void>> addInteraction(
+      BluetoothDeviceEntity device, String interaction);
   Future<Either<ExceptionEntity, void>> listenBluetoothDeviceData(
-      BluetoothDevice device, Function onData);
+      BluetoothDeviceEntity device, Function onData);
 }

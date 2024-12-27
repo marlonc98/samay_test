@@ -7,6 +7,7 @@ Future<bool> checkBluetoothPermissions() async {
   if (await Permission.bluetoothScan.request().isGranted &&
       await Permission.bluetooth.request().isGranted &&
       await Permission.bluetoothAdvertise.request().isGranted &&
+      await Permission.location.request().isGranted &&
       await Permission.bluetoothConnect.request().isGranted) {
     return true;
   }

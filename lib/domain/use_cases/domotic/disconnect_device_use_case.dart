@@ -5,28 +5,24 @@ import 'package:samay/domain/entities/exception_entity.dart';
 import 'package:samay/domain/repositories/domotic_repository.dart';
 import 'package:samay/domain/states/domotic_state.dart';
 
-class ConnectDeviceUseCase {
+class DisconnectDeviceUseCase {
   final DomoticRepository domoticRepository;
   final DomoticState domoticState;
 
-  ConnectDeviceUseCase({
+  DisconnectDeviceUseCase({
     required this.domoticRepository,
     required this.domoticState,
   });
 
-  Future<Either<ExceptionEntity, BluetoothDeviceEntity>> call(
-      BluetoothDevice device) async {
-    Either<ExceptionEntity, BluetoothDeviceEntity> response =
-        await domoticRepository.connectBluetoothDevice(device);
+  Future<Either<ExceptionEntity, void>> call(
+      BluetoothDeviceEntity device) async {
+    Either<ExceptionEntity, void> response =
+        await domoticRepository.disconnectBluetoothDevice(device);
     if (response.isRight) {
-      domoticRepository.saveBluetoothDevice(response.right);
-      domoticState.knwonDevices.add(response.right);
+      domoticState.knwonDevices
+          .removeWhere((element) => element.address == device.address);
       domoticState.notify();
-
-      //add callback to update on notifications
-      domoticRepository.listenBluetoothDeviceData(
-          response.right, () => domoticState.notify());
     }
-    return response;
+    return const Right(null);
   }
 }

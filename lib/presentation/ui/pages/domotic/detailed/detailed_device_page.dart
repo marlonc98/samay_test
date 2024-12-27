@@ -1,27 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:samay/domain/entities/bluetooth_device_entity.dart';
 import 'package:samay/presentation/ui/pages/domotic/connected/widgets/card_device_widget.dart';
 import 'package:samay/presentation/ui/pages/domotic/detailed/detailed_device_page_view_model.dart';
 
-class DetailedDevicePage extends StatelessWidget {
+class DetailedDevicePage extends StatefulWidget {
   static const String route = '/domotic/detailed';
   final BluetoothDeviceEntity device;
   const DetailedDevicePage({super.key, required this.device});
 
   @override
+  State<DetailedDevicePage> createState() => _DetailedDevicePageState();
+}
+
+class _DetailedDevicePageState extends State<DetailedDevicePage> {
+  @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<DetailedDevicePageViewModel>(
-      create: (_) =>
-          DetailedDevicePageViewModel(context: context, widget: this),
+      create: (_) => DetailedDevicePageViewModel(
+          context: context, widget: widget, isMounted: () => mounted),
       child: Consumer<DetailedDevicePageViewModel>(
         builder: (context, viewModel, child) => Scaffold(
           resizeToAvoidBottomInset: true,
           body: CustomScrollView(slivers: [
             SliverAppBar(
-              title: Text(device.name),
+              title: Text(widget.device.name),
               floating: false,
               snap: false,
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.link_off),
+                  onPressed: viewModel.handleDeleteDevice,
+                ),
+              ],
             ),
             SliverPadding(
               padding: const EdgeInsets.all(8.0),
@@ -30,7 +42,7 @@ class DetailedDevicePage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(vertical: 20, horizontal: 8),
                   elevation: 0,
-                  device: device,
+                  device: widget.device,
                   turnDeviceOnOff: viewModel.turnDeviceOnOff,
                 ),
               ]),
@@ -52,9 +64,10 @@ class DetailedDevicePage extends StatelessWidget {
                           width: double.infinity,
                           child: SingleChildScrollView(
                             child: Column(
-                              children: device.interactions.isEmpty
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: widget.device.interactions.isEmpty
                                   ? const [Text("No interactions yet")]
-                                  : device.interactions
+                                  : widget.device.interactions
                                       .map((interaction) => Text(interaction))
                                       .toList(),
                             ),
@@ -76,18 +89,22 @@ class DetailedDevicePage extends StatelessWidget {
                                 ? Colors.white
                                 : Colors.black,
                           ),
-                          child: TextField(
-                            decoration: const InputDecoration(
-                              hintText: 'Interaction',
-                              border: InputBorder.none,
-                              enabledBorder: InputBorder.none,
+                          child: StreamBuilder(
+                            stream:
+                                widget.device.deviceBluetooth?.connectionState,
+                            builder: (context, snapshot) => TextField(
+                              decoration: const InputDecoration(
+                                hintText: 'Interaction',
+                                border: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                              ),
+                              controller: viewModel.interactionController,
+                              enabled: snapshot.data ==
+                                  BluetoothConnectionState.connected,
+                              onSubmitted: (value) {
+                                viewModel.handleAddInteraction();
+                              },
                             ),
-                            controller: viewModel.interactionController,
-                            enabled:
-                                device.deviceBluetooth?.isConnected ?? false,
-                            onSubmitted: (value) {
-                              viewModel.handleAddInteraction(value);
-                            },
                           ),
                         )),
                         const SizedBox(width: 10),
@@ -102,7 +119,7 @@ class DetailedDevicePage extends StatelessWidget {
                               color: Colors.white,
                             ),
                             onPressed: () {
-                              viewModel.handleAddInteraction('Interaction');
+                              viewModel.handleAddInteraction();
                             },
                           ),
                         )

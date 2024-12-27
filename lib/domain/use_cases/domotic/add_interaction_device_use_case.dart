@@ -4,31 +4,29 @@ import 'package:samay/domain/entities/exception_entity.dart';
 import 'package:samay/domain/repositories/domotic_repository.dart';
 import 'package:samay/domain/states/domotic_state.dart';
 
-class ToggleOnDeviceUseCase {
+class AddInteractionDeviceUseCase {
   DomoticRepository domoticRepository;
   DomoticState domoticState;
 
-  ToggleOnDeviceUseCase({
+  AddInteractionDeviceUseCase({
     required this.domoticRepository,
     required this.domoticState,
   });
 
   Future<Either<ExceptionEntity, void>> call(
-      BluetoothDeviceEntity device, bool on) async {
+      BluetoothDeviceEntity device, String interaction) async {
+    device.interactions.add("Starting: $interaction");
+    domoticState.notify();
     Either<ExceptionEntity, void> response =
-        await domoticRepository.turnOfOnDevice(device, on);
+        await domoticRepository.addInteraction(device, interaction);
     if (response.isRight) {
-      domoticState.knwonDevices
-          .where((deviceKnown) => deviceKnown.address == device.address)
-          .forEach((deviceKnown) {
-        deviceKnown.on = on;
-        final copyInteractions = deviceKnown.interactions;
-        deviceKnown.interactions = [
-          'Device turned ${on ? 'on' : 'off'}',
-          ...copyInteractions
-        ];
-      });
-      domoticState.notify();
+      print("Done: $interaction");
+      device.interactions.add("Done: $interaction");
+      domoticState.modifyOnDevice(device);
+    } else {
+      print("Error: ${response.left}");
+      device.interactions.add("Error: $interaction");
+      domoticState.modifyOnDevice(device);
     }
     return response;
   }
