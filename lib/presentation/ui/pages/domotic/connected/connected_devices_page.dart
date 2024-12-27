@@ -8,16 +8,21 @@ import 'package:samay/presentation/ui/widgets/custom_botttom_navigation_widget.d
 import 'package:samay/presentation/ui/widgets/loading_widget.dart';
 import 'package:samay/presentation/ui/widgets/not_found_widget.dart';
 
-class ConnectedDevicesPage extends StatelessWidget {
+class ConnectedDevicesPage extends StatefulWidget {
   static const String route = '/domotic/connected';
   const ConnectedDevicesPage({super.key});
 
   @override
+  State<ConnectedDevicesPage> createState() => _ConnectedDevicesPageState();
+}
+
+class _ConnectedDevicesPageState extends State<ConnectedDevicesPage> {
+  @override
   Widget build(BuildContext context) {
     final domoticDevices = Provider.of<DomoticState>(context).knwonDevices;
     return ChangeNotifierProvider<ConnectedDevicesPageViewModel>(
-        create: (_) =>
-            ConnectedDevicesPageViewModel(context: context, widget: this),
+        create: (_) => ConnectedDevicesPageViewModel(
+            context: context, widget: widget, isMounted: () => mounted),
         child: Consumer<ConnectedDevicesPageViewModel>(
             builder: (context, viewModel, child) {
           if (viewModel.loading && domoticDevices.isEmpty) {
@@ -35,9 +40,8 @@ class ConnectedDevicesPage extends StatelessWidget {
                     Navigator.of(context).pushNamed(SearchDevicesPage.route),
                 child: const Icon(Icons.add),
               ),
-              bottomNavigationBar: CustomBotttomNavigationWidget(
-                key: key,
-                currentRoute: route,
+              bottomNavigationBar: const CustomBotttomNavigationWidget(
+                currentRoute: ConnectedDevicesPage.route,
               ),
               body: RefreshIndicator(
                 onRefresh: () => viewModel.refreshDevices(),

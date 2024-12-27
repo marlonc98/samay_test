@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:samay/presentation/ui/widgets/not_read_image_widget.dart';
 
@@ -19,10 +21,16 @@ class ImageNetworkWithLoadWidget extends StatelessWidget {
     return imageUrl.startsWith('http') || imageUrl.startsWith('https');
   }
 
+  _isFile() {
+    return imageUrl.startsWith('/data/user/0/');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Image(
-      image: _isWeb() ? NetworkImage(imageUrl) : AssetImage(imageUrl),
+      image: _isWeb()
+          ? NetworkImage(imageUrl)
+          : (_isFile() ? FileImage(File(imageUrl)) : AssetImage(imageUrl)),
       fit: fit,
       width: width,
       height: height,

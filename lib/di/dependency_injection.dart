@@ -1,11 +1,15 @@
 import 'package:get_it/get_it.dart';
+import 'package:samay/data/db/db_setting.dart';
 import 'package:samay/data/repositories/agency/agency_repository_fake.dart';
 import 'package:samay/data/repositories/domotic/domotic_repository_dev.dart';
 import 'package:samay/data/repositories/domotic/domotic_repository_fake.dart';
+import 'package:samay/data/repositories/domotic/domotic_repository_impl.dart';
 import 'package:samay/data/repositories/localization/localization_repository_dev.dart';
 import 'package:samay/data/repositories/localization/localization_repository_fake.dart';
 import 'package:samay/data/repositories/localization/localization_repository_impl.dart';
+import 'package:samay/data/repositories/project/project_repository_dev.dart';
 import 'package:samay/data/repositories/project/project_repository_fake.dart';
+import 'package:samay/data/repositories/project/project_repository_impl.dart';
 import 'package:samay/domain/repositories/agency_respository.dart';
 import 'package:samay/domain/repositories/domotic_repository.dart';
 import 'package:samay/domain/repositories/project_repository.dart';
@@ -44,14 +48,18 @@ class DependencyInjection {
           LocalizationRepositoryFake());
       getIt.registerSingleton<ProjectRepository>(ProjectRepositoryFake());
     } else if (mode == Flavor.dev) {
+      getIt.registerSingleton<DbSetting>(DbSetting());
       getIt.registerSingleton<AgencyRepository>(AgencyRepositoryFake());
       getIt.registerSingleton<DomoticRepository>(DomoticRepositoryDev());
       getIt.registerSingleton<LocalizationRepository>(
           LocalizationRepositoryDev());
-      getIt.registerSingleton<ProjectRepository>(ProjectRepositoryFake());
+      getIt.registerSingleton<ProjectRepository>(ProjectRepositoryDev());
     } else {
+      getIt.registerSingleton<DbSetting>(DbSetting());
+      getIt.registerSingleton<DomoticRepository>(DomoticRepositoryImpl());
       getIt.registerSingleton<LocalizationRepository>(
           LocalizationRepositoryImpl());
+      getIt.registerSingleton<ProjectRepository>(ProjectRepositoryImpl());
     }
     //#endregion repositories
 
@@ -105,14 +113,17 @@ class DependencyInjection {
     //#endregion
     //#region project
     getIt.registerSingleton<CreateProjectUseCase>(CreateProjectUseCase(
-        projectRepository: getIt.get<ProjectRepository>()));
+        projectRepository: getIt.get<ProjectRepository>(),
+        agencyState: getIt.get<AgencyState>()));
     getIt.registerSingleton<GetProjectByIdUseCase>(GetProjectByIdUseCase(
         projectRepository: getIt.get<ProjectRepository>()));
     getIt.registerSingleton<SearchProjectsUseCase>(SearchProjectsUseCase(
       projectRepository: getIt.get<ProjectRepository>(),
+      agencyState: getIt.get<AgencyState>(),
     ));
     getIt.registerSingleton<UpdateProjectUseCase>(UpdateProjectUseCase(
-        projectRepository: getIt.get<ProjectRepository>()));
+        projectRepository: getIt.get<ProjectRepository>(),
+        agencyState: getIt.get<AgencyState>()));
     //#endregion
     //#endregion
   }

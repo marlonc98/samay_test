@@ -52,8 +52,6 @@ class ProjectCreatePage extends StatelessWidget {
           validator: (val) => Validators.check(
               text: val,
               context: context,
-              maxValue: 999999999,
-              minValue: 0,
               required: !aditionalField.optional,
               fields: valuesForm,
               type: FormType.text,
@@ -63,7 +61,7 @@ class ProjectCreatePage extends StatelessWidget {
         return TextFormField(
           keyboardType: TextInputType.number,
           autovalidateMode: AutovalidateMode.onUserInteraction,
-          initialValue: valuesForm[_getKeyName],
+          initialValue: valuesForm[_getKeyName]?.toString(),
           decoration: _inputDecoration(
               label: aditionalField.name,
               hint: aditionalField.hint,
@@ -131,12 +129,15 @@ class ProjectCreatePage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CameraPickerWidget<XFile?>(
+                    CameraPickerWidget(
                         value: viewModel.valuesForm[
                             KeyWordsConstants.projectCreatePageImageField],
                         maxFiles: 1,
-                        validator: (val) => Validators.check(
-                            text: val, context: context, required: true),
+                        onChange: (value) => viewModel.valuesForm[
+                                KeyWordsConstants.projectCreatePageImageField] =
+                            value,
+                        // validator: (val) => Validators.check(
+                        //     text: val, context: context, required: true),
                         title: viewModel.localization.translate(
                             KeyWordsConstants.projectCreatePageImageField)),
                     const SizedBox(

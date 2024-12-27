@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:samay/domain/entities/agency_entity.dart';
 import 'package:samay/domain/states/agency_state.dart';
-import 'package:samay/presentation/ui/theme/light_theme.dart';
+import 'package:samay/presentation/ui/theme/light_theme.dart' as lt;
+import 'package:samay/presentation/ui/theme/dark_theme.dart' as dt;
 
 class AgencyStateImpl extends AgencyState {
   AgencyEntity? _selectedAgency;
@@ -11,7 +12,8 @@ class AgencyStateImpl extends AgencyState {
   @override
   set selectedAgency(AgencyEntity? value) {
     _selectedAgency = value;
-    _setThemeBasedOnAgency(value);
+    _setLightThemeBasedOnAgency(value);
+    _setDarkThemeBasedOnAgency(value);
     notifyListeners();
   }
 
@@ -25,21 +27,39 @@ class AgencyStateImpl extends AgencyState {
     notifyListeners();
   }
 
-  ThemeData? _theme;
+  ThemeData? _lightTheme;
   @override
-  ThemeData? get theme => _theme;
+  ThemeData? get lightTheme => _lightTheme;
   @override
-  set theme(ThemeData? value) {
-    _theme = value;
+  set lightTheme(ThemeData? value) {
+    _lightTheme = value;
     notifyListeners();
   }
 
-  void _setThemeBasedOnAgency(AgencyEntity? agency) {
+  void _setLightThemeBasedOnAgency(AgencyEntity? agency) {
     if (agency == null) {
-      theme = lightTheme();
+      lightTheme = lt.lightTheme();
       return;
     }
     Color color = Color(int.parse('0xFF${agency.hexColor}'));
-    _theme = lightTheme(colorMain: color);
+    _lightTheme = lt.lightTheme(colorMain: color);
+  }
+
+  ThemeData? _darkTheme;
+  @override
+  ThemeData? get darkTheme => _darkTheme;
+  @override
+  set darkTheme(ThemeData? value) {
+    _darkTheme = value;
+    notifyListeners();
+  }
+
+  void _setDarkThemeBasedOnAgency(AgencyEntity? agency) {
+    if (agency == null) {
+      darkTheme = dt.darkTheme();
+      return;
+    }
+    Color color = Color(int.parse('0xFF${agency.hexColor}'));
+    _darkTheme = dt.darkTheme(colorMain: color);
   }
 }

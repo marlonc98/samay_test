@@ -10,7 +10,9 @@ import 'package:samay/presentation/ui/pages/view_model.dart';
 
 class ConnectedDevicesPageViewModel extends ViewModel<ConnectedDevicesPage> {
   ConnectedDevicesPageViewModel(
-      {required super.context, required super.widget}) {
+      {required super.context,
+      required super.widget,
+      required super.isMounted}) {
     _loadDevices();
   }
 
@@ -21,11 +23,12 @@ class ConnectedDevicesPageViewModel extends ViewModel<ConnectedDevicesPage> {
     notifyListeners();
     Either<ExceptionEntity, List<BluetoothDeviceEntity>> response =
         await getIt.get<GetConnectedDevicesUseCase>().call();
-    if (response.isRight && response.right.isEmpty) {
+    if (response.isRight && response.right.isEmpty && mounted) {
+      // ignore: use_build_context_synchronously
       Navigator.of(context).pushNamed(SearchDevicesPage.route);
     }
     loading = false;
-    notifyListeners();
+    if (mounted) notifyListeners();
   }
 
   Future<void> refreshDevices() async {

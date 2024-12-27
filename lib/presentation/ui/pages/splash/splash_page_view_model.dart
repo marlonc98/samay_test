@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:samay/domain/use_cases/default/load_use_case.dart';
-import 'package:samay/presentation/ui/pages/domotic/connected/connected_devices_page.dart';
+import 'package:samay/presentation/ui/pages/projects/list/projects_page.dart';
 import 'package:samay/presentation/ui/pages/view_model.dart';
 
 class SplashPageViewModel extends ViewModel {
@@ -13,6 +13,6 @@ class SplashPageViewModel extends ViewModel {
 
   void initApp() async {
     await GetIt.instance.get<LoadUseCase>().call();
-    Navigator.of(context).pushReplacementNamed(ConnectedDevicesPage.route);
+    Navigator.of(context).pushReplacementNamed(ProjectsPage.route);
   }
 }

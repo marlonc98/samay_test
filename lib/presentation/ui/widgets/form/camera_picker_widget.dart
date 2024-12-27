@@ -8,13 +8,13 @@ import 'package:samay/domain/states/localization_state.dart';
 import 'package:samay/utils/key_words_constants.dart';
 import 'package:samay/utils/show_modal.dart';
 
-class CameraPickerWidget<T> extends FormField<T> {
+class CameraPickerWidget extends FormField {
   final String title;
-  final Function(T value)? onChange;
+  final Function(dynamic value)? onChange;
   final int? maxFiles;
-  final T? value;
+  final dynamic value;
   final bool showDelete;
-  final Function(T item)? onTap;
+  final Function(dynamic item)? onTap;
 
   CameraPickerWidget(
       {super.key,
@@ -26,13 +26,13 @@ class CameraPickerWidget<T> extends FormField<T> {
       this.showDelete = true,
       this.onTap,
       this.maxFiles})
-      : super(builder: (FormFieldState<T> state) {
-          return CameraPickerItem<T>(
+      : super(builder: (FormFieldState<dynamic> state) {
+          return CameraPickerItem(
             title: title,
             enabled: enabled,
             errorText: state.errorText,
             maxFiles: maxFiles,
-            onChange: (T value) {
+            onChange: (dynamic value) {
               state.didChange(value);
               onChange?.call(value);
             },
@@ -41,13 +41,13 @@ class CameraPickerWidget<T> extends FormField<T> {
         });
 }
 
-class CameraPickerItem<T> extends StatefulWidget {
+class CameraPickerItem extends StatefulWidget {
   final String title;
-  final Function(T value)? onChange;
+  final Function(dynamic value)? onChange;
   final bool enabled;
   final int? maxFiles;
   final String? errorText;
-  final T? value;
+  final dynamic value;
   const CameraPickerItem(
       {super.key,
       this.onChange,
@@ -61,7 +61,7 @@ class CameraPickerItem<T> extends StatefulWidget {
   createState() => _CameraPickerItemState();
 }
 
-class _CameraPickerItemState<T> extends State<CameraPickerItem> {
+class _CameraPickerItemState extends State<CameraPickerItem> {
   List<XFile> selectedFiles = [];
   late LocalizationState localization;
 
@@ -107,12 +107,13 @@ class _CameraPickerItemState<T> extends State<CameraPickerItem> {
   _change(List<XFile> files) {
     setState(() {
       if (widget.maxFiles == 1) {
+        widget.onChange?.call(files.first);
         selectedFiles = files;
       } else {
-        selectedFiles = [...selectedFiles, ...files];
+        selectedFiles = files;
+        widget.onChange?.call(selectedFiles);
       }
     });
-    // widget.onChange?.call(selectedFiles.first);
   }
 
   _handleSelectImage(BuildContext context) {

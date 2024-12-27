@@ -34,7 +34,9 @@ class SearchDevicesPageViewModel extends ViewModel<SearchDevicesPage> {
     Either<ExceptionEntity, List<BluetoothDevice>> response =
         await getIt.get<SearchDevicesToConnectUseCase>().call(onCallBack);
     if (response.isLeft) {
-      waiterDevices = WaiterDataEntity(status: WaiterDataEntityStatus.error);
+      waiterDevices =
+          WaiterDataEntity(status: WaiterDataEntityStatus.error, data: []);
+      if (mounted) notifyListeners();
       if (mounted) {
         // ignore: use_build_context_synchronously
         ShowModal.showSnackBar(context: context, text: response.left.code);

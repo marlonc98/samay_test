@@ -23,7 +23,7 @@ class RouteBottomNavigation {
 class CustomBotttomNavigationWidget extends StatelessWidget {
   final String? currentRoute;
   const CustomBotttomNavigationWidget({
-    required super.key,
+    super.key,
     this.currentRoute,
   });
 

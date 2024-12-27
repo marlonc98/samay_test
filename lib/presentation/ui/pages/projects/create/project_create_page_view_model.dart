@@ -72,8 +72,11 @@ class ProjectCreatePageViewModel extends ViewModel<ProjectCreatePage> {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
     } else {
+      print("no pass validation");
       return;
     }
+
+    print("call update");
     final AgencyEntity agency =
         Provider.of<AgencyState>(context, listen: false).selectedAgency!;
     ProjectEntity currentProject = ProjectEntity(
@@ -85,16 +88,17 @@ class ProjectCreatePageViewModel extends ViewModel<ProjectCreatePage> {
           0,
       imageUrl: "",
       name: valuesForm[KeyWordsConstants.projectCreatePageNameField],
-      aditionalFields: projectWaiterDataEntity.data!.aditionalFields
-          .map((AditionalFieldEntity field) {
-        return AditionalFieldEntity(
-          name: field.name,
-          value: valuesForm[getKeyValue(field.name)],
-          type: field.type,
-          optional: field.optional,
-          hint: field.hint,
-        );
-      }).toList(),
+      aditionalFields: projectWaiterDataEntity.data?.aditionalFields
+              .map((AditionalFieldEntity field) {
+            return AditionalFieldEntity(
+              name: field.name,
+              value: valuesForm[getKeyValue(field.name)],
+              type: field.type,
+              optional: field.optional,
+              hint: field.hint,
+            );
+          }).toList() ??
+          [],
     );
     Either<ExceptionEntity, ProjectEntity> response = await GetIt.I
         .get<UpdateProjectUseCase>()
@@ -119,23 +123,24 @@ class ProjectCreatePageViewModel extends ViewModel<ProjectCreatePage> {
     }
     ProjectEntity currentProject = ProjectEntity(
       id: "",
-      agencyId: projectWaiterDataEntity.data!.agencyId,
+      agencyId: "",
       location: valuesForm[KeyWordsConstants.projectCreatePageAddressField],
       price: CurrencyFormat.usdToInt(
               valuesForm[KeyWordsConstants.projectCreatePagePriceField]) ??
           0,
       imageUrl: "",
       name: valuesForm[KeyWordsConstants.projectCreatePageNameField],
-      aditionalFields: projectWaiterDataEntity.data!.aditionalFields
-          .map((AditionalFieldEntity field) {
-        return AditionalFieldEntity(
-          name: field.name,
-          value: valuesForm[getKeyValue(field.name)],
-          type: field.type,
-          optional: field.optional,
-          hint: field.hint,
-        );
-      }).toList(),
+      aditionalFields: projectWaiterDataEntity.data?.aditionalFields
+              .map((AditionalFieldEntity field) {
+            return AditionalFieldEntity(
+              name: field.name,
+              value: valuesForm[getKeyValue(field.name)],
+              type: field.type,
+              optional: field.optional,
+              hint: field.hint,
+            );
+          }).toList() ??
+          [],
     );
     Either<ExceptionEntity, ProjectEntity> response = await GetIt.I
         .get<CreateProjectUseCase>()

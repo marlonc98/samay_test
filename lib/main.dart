@@ -5,6 +5,7 @@ import 'package:samay/domain/states/agency_state.dart';
 import 'package:samay/domain/states/domotic_state.dart';
 import 'package:samay/domain/states/localization_state.dart';
 import 'package:samay/presentation/routes/route_generator.dart';
+import 'package:samay/presentation/ui/theme/dark_theme.dart';
 import 'package:samay/presentation/ui/theme/light_theme.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
@@ -32,8 +33,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'App Name',
       debugShowCheckedModeBanner: false,
-      theme: Provider.of<AgencyState>(context).theme ?? lightTheme(),
-      darkTheme: ThemeData.dark(),
+      theme: Provider.of<AgencyState>(context).lightTheme ?? lightTheme(),
+      darkTheme: Provider.of<AgencyState>(context).darkTheme ?? darkTheme(),
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
