@@ -2,6 +2,7 @@ import 'package:either_dart/either.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:samay/domain/entities/exception_entity.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:samay/utils/key_words_constants.dart';
 
 Future<bool> checkBluetoothPermissions() async {
   if (await Permission.bluetoothScan.request().isGranted &&
@@ -18,17 +19,19 @@ Future<Either<ExceptionEntity, List<BluetoothDevice>>>
     searchBluetoothDevicesApiImpl(
         Function(List<BluetoothDevice>) onCallBack) async {
   if (await FlutterBluePlus.isSupported == false) {
-    return Left(
-        ExceptionEntity(code: "Bluetooth not supported by this device"));
+    return Left(ExceptionEntity(
+        code: KeyWordsConstants.domoticApiErrorBluetoothIsNotSupported));
   }
   bool isGranted = await checkBluetoothPermissions();
   if (isGranted == false) {
-    return Left(ExceptionEntity(code: "Bluetooth permissions not granted"));
+    return Left(ExceptionEntity(
+        code: KeyWordsConstants.domoticApiErrorBluetoothIsNotAuthorized));
   }
 
   // ignore: deprecated_member_use
   if (await FlutterBluePlus.isOn == false) {
-    return Left(ExceptionEntity(code: "Bluetooth is off"));
+    return Left(ExceptionEntity(
+        code: KeyWordsConstants.domoticApiErrorBluetoothIsNotEnabled));
   }
 
   // List to store devices found during the scan
@@ -71,5 +74,6 @@ Future<Either<ExceptionEntity, List<BluetoothDevice>>>
 
   return devices().isNotEmpty
       ? Right(devices())
-      : Left(ExceptionEntity(code: "No devices found"));
+      : Left(ExceptionEntity(
+          code: KeyWordsConstants.domoticApiErrorBluetoothNotFindingDevices));
 }

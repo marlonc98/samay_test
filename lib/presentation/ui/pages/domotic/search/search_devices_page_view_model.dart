@@ -38,6 +38,7 @@ class SearchDevicesPageViewModel extends ViewModel<SearchDevicesPage> {
           WaiterDataEntity(status: WaiterDataEntityStatus.error, data: []);
       if (mounted) notifyListeners();
       if (mounted) {
+        waiterDevices.dataError = response.left.code;
         // ignore: use_build_context_synchronously
         ShowModal.showSnackBar(context: context, text: response.left.code);
       }

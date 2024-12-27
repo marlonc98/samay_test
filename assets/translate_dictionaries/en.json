@@ -25,5 +25,16 @@
     "cameraPickerWidgetTitle": "Select a photo",
     "cameraPickerWidgetText": "Choose a photo from your gallery or take a new one",
     "cameraPickerWidgetCamera": "Camera",
-    "cameraPickerWidgetGallery": "Gallery"
+    "cameraPickerWidgetGallery": "Gallery",
+
+    "-------- API --------": "-------- API --------",
+    "domoticApiErrorNoCharacteristic": "No data services found on device",
+    "domoticApiErrorWritingCharacteristic": "Error sending data",
+    "domoticApiErrorNotServiceFound": "No data services found on device",
+    "domoticApiErrorConnectingDevice": "Error connecting to device",
+    "domoticApiErrorDisconnectingDevice": "Error disconnecting from device",
+    "domoticApiErrorGettingSavedDevices": "Error getting saved devices",
+    "domoticApiErrorSavingNewDevice": "Error saving new device",
+
+    "-------- END API --------": "-------- END API --------",
 }

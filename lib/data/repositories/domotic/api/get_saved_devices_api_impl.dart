@@ -5,6 +5,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:samay/data/dto/bluetooth_device_from_sp_dto.dart';
 import 'package:samay/domain/entities/bluetooth_device_entity.dart';
 import 'package:samay/domain/entities/exception_entity.dart';
+import 'package:samay/utils/key_words_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<Either<ExceptionEntity, List<BluetoothDeviceEntity>>>
@@ -29,6 +30,7 @@ Future<Either<ExceptionEntity, List<BluetoothDeviceEntity>>>
     }
     return Right(devices);
   } catch (e) {
-    return Left(ExceptionEntity.fromException(e));
+    return Left(ExceptionEntity(
+        code: KeyWordsConstants.domoticApiErrorGettingSavedDevices));
   }
 }

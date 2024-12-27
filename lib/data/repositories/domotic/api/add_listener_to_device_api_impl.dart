@@ -2,6 +2,7 @@ import 'package:either_dart/either.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:samay/domain/entities/bluetooth_device_entity.dart';
 import 'package:samay/domain/entities/exception_entity.dart';
+import 'package:samay/utils/key_words_constants.dart';
 
 Future<BluetoothCharacteristic?> getCharactiristicRead(
     BluetoothDevice device) async {
@@ -22,7 +23,8 @@ Future<Either<ExceptionEntity, void>> addListenerToDeviceApiImpl(
   List<BluetoothService>? services =
       await btDevice.deviceBluetooth?.discoverServices();
   if (services == null || services.isEmpty) {
-    return Left(ExceptionEntity(code: "No services found"));
+    return Left(ExceptionEntity(
+        code: KeyWordsConstants.domoticApiErrorNotServiceFound));
   }
   for (BluetoothService service in services) {
     for (BluetoothCharacteristic characteristic in service.characteristics) {

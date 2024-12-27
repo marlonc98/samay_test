@@ -10,8 +10,12 @@ enum WaiterDataEntityStatus {
 class WaiterDataEntity<T> {
   T? data;
   WaiterDataEntityStatus status;
+  String? dataError;
 
-  WaiterDataEntity({this.data, this.status = WaiterDataEntityStatus.loading});
+  WaiterDataEntity(
+      {this.data,
+      this.status = WaiterDataEntityStatus.loading,
+      this.dataError});
 
   WaiterDataEntity<T> fromEither(Either<ExceptionEntity, T> either) {
     return WaiterDataEntity(

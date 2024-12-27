@@ -3,6 +3,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:samay/domain/entities/bluetooth_device_entity.dart';
 import 'package:samay/domain/entities/exception_entity.dart';
 import 'package:samay/utils/images_constants.dart';
+import 'package:samay/utils/key_words_constants.dart';
 
 Future<Either<ExceptionEntity, BluetoothDeviceEntity>>
     connectBluetoothDeviceApiImpl(BluetoothDevice device) async {
@@ -16,6 +17,7 @@ Future<Either<ExceptionEntity, BluetoothDeviceEntity>>
     );
     return Right(parsed);
   } catch (e) {
-    return Left(ExceptionEntity(code: "Error connecting to device"));
+    return Left(ExceptionEntity(
+        code: KeyWordsConstants.domoticApiErrorConnectingDevice));
   }
 }
