@@ -5,6 +5,7 @@ import 'package:samay/data/db/db_setting.dart';
 import 'package:samay/data/dto/agency_from_local_dto.dart';
 import 'package:samay/domain/entities/agency_entity.dart';
 import 'package:samay/domain/entities/exception_entity.dart';
+import 'package:samay/utils/key_words_constants.dart';
 
 Future<Either<ExceptionEntity, List<AgencyEntity>>>
     getAllAgentsApiImpl() async {
@@ -19,6 +20,7 @@ Future<Either<ExceptionEntity, List<AgencyEntity>>>
         response.right.map((e) => AgencyFromLocalDto.fromJSON(e)).toList();
     return Right(listOfAgencies);
   } catch (e) {
-    return Left(ExceptionEntity.fromException(e));
+    return Left(
+        ExceptionEntity(code: KeyWordsConstants.agencyApiErrorGetAllAgencies));
   }
 }

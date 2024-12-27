@@ -46,5 +46,6 @@
     "projectApiErrorSearchingProjects": "No projects found",
     "projectApiErrorUpdating": "Error updating project",
 
-    "-------- END API --------": "-------- END API --------",
+    "agencyApiErrorGetAllAgencies": "No agencies found",
+    "-------- END API --------": "-------- END API --------"
 }

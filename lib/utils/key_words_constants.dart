@@ -66,5 +66,8 @@ class KeyWordsConstants {
   static const String projectApiErrorSearchingProjects =
       "projectApiErrorSearchingProjects";
   static const String projectApiErrorUpdating = "projectApiErrorUpdating";
+
+  static const String agencyApiErrorGetAllAgencies =
+      "agencyApiErrorGetAllAgencies";
   //#region API
 }
