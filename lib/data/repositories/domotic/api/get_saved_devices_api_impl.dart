@@ -15,26 +15,20 @@ Future<Either<ExceptionEntity, List<BluetoothDeviceEntity>>>
     spDevices = sp.getStringList(fileName) ?? [];
     List<BluetoothDeviceEntity> devices = [];
     for (String device in spDevices) {
-      print("getSavedDevicesApiImpl to device string: ${device}");
       Map<String, dynamic> asJson = jsonDecode(device);
       BluetoothDeviceEntity parsed = BluetoothDeviceFromSpDto.fromJSON(asJson);
       try {
         if (parsed.deviceBluetooth?.isConnected == false &&
+            // ignore: deprecated_member_use
             await FlutterBluePlus.isOn == true) {
           parsed.deviceBluetooth?.connect(autoConnect: true, mtu: null);
         }
-        print(
-            "getSavedDevicesApiImpl Connected to device: ${parsed.deviceBluetooth?.platformName} ${parsed.deviceBluetooth?.remoteId} connected: ${parsed.deviceBluetooth?.isConnected}");
-      } catch (e) {
-        print(
-            "getSavedDevicesApiImpl error connecting to device: ${parsed.name} $e");
-      }
+        // ignore: empty_catches
+      } catch (e) {}
       devices.add(parsed);
     }
-    print("getSavedDevicesApiImpl $devices");
     return Right(devices);
   } catch (e) {
-    print("getSavedDevicesApiImpl Error getting saved devices: $e");
     return Left(ExceptionEntity.fromException(e));
   }
 }

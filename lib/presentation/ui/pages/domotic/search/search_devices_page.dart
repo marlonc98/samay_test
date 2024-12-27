@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:samay/domain/entities/waiter_data_entity.dart';
 import 'package:samay/presentation/ui/pages/domotic/search/search_devices_page_view_model.dart';

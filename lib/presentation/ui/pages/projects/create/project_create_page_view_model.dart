@@ -72,11 +72,9 @@ class ProjectCreatePageViewModel extends ViewModel<ProjectCreatePage> {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
     } else {
-      print("no pass validation");
       return;
     }
 
-    print("call update");
     final AgencyEntity agency =
         Provider.of<AgencyState>(context, listen: false).selectedAgency!;
     ProjectEntity currentProject = ProjectEntity(

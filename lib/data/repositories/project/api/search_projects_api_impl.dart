@@ -54,7 +54,6 @@ Future<Either<ExceptionEntity, SearchResultEntity<ProjectEntity>>>
       ));
     }
   } catch (e) {
-    print("Error searching items: $e");
     return Left(ExceptionEntity(code: 'Error searching items'));
   }
 }

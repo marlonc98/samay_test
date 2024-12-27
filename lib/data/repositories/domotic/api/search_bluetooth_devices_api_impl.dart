@@ -17,7 +17,6 @@ Future<bool> checkBluetoothPermissions() async {
 Future<Either<ExceptionEntity, List<BluetoothDevice>>>
     searchBluetoothDevicesApiImpl(
         Function(List<BluetoothDevice>) onCallBack) async {
-  print("searchBluetoothDevicesApiImpl start ");
   if (await FlutterBluePlus.isSupported == false) {
     return Left(
         ExceptionEntity(code: "Bluetooth not supported by this device"));
@@ -27,6 +26,7 @@ Future<Either<ExceptionEntity, List<BluetoothDevice>>>
     return Left(ExceptionEntity(code: "Bluetooth permissions not granted"));
   }
 
+  // ignore: deprecated_member_use
   if (await FlutterBluePlus.isOn == false) {
     return Left(ExceptionEntity(code: "Bluetooth is off"));
   }
@@ -48,21 +48,9 @@ Future<Either<ExceptionEntity, List<BluetoothDevice>>>
     for (var result in results) {
       // Avoid duplicates
       if (!resultsSaved
+          // ignore: deprecated_member_use
           .any((resultSaved) => resultSaved.device.id == result.device.id)) {
         resultsSaved.add(result);
-        result.device.connectionState.listen((BluetoothConnectionState st) {
-          print("Dispositivo estado: ${result.advertisementData.toString()}");
-          print(
-              "Dispositivo leido: ${result.device.toString()} ${result.device.platformName}: ${result.advertisementData.toString()}");
-          result.device.servicesList.forEach((service) {
-            print(
-                "Dispositivo Servicio: ${service.uuid.toString()} ${service.characteristics.toString()}");
-          });
-          if (st == BluetoothConnectionState.connected) {
-            print(
-                "Dispositivo conectado: ${result.device.toString()} ${result.device.platformName}: ${result.advertisementData.toString()}");
-          }
-        });
       }
     }
     onCallBack(devices());

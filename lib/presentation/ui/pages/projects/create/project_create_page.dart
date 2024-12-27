@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:samay/domain/entities/aditional_field_entity.dart';
 import 'package:samay/domain/entities/agency_entity.dart';

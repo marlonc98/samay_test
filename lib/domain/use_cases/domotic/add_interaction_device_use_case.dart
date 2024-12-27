@@ -20,11 +20,9 @@ class AddInteractionDeviceUseCase {
     Either<ExceptionEntity, void> response =
         await domoticRepository.addInteraction(device, interaction);
     if (response.isRight) {
-      print("Done: $interaction");
       device.interactions.add("Done: $interaction");
       domoticState.modifyOnDevice(device);
     } else {
-      print("Error: ${response.left}");
       device.interactions.add("Error: $interaction");
       domoticState.modifyOnDevice(device);
     }
