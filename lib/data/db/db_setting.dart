@@ -89,10 +89,10 @@ class DbSetting {
       {required String table, required Map<String, dynamic> data}) async {
     try {
       print("Insertando en $table: $data");
-      int resposne = await db.insert(table, data);
+      int response = await db.insert(table, data);
       //get the inserted
       final result =
-          await db.query(table, where: 'id = ?', whereArgs: [resposne]);
+          await db.query(table, where: 'id = ?', whereArgs: [response]);
       print("Registro insertado en $table: $data");
       return Right(result.first);
     } catch (e) {
@@ -138,6 +138,17 @@ class DbSetting {
       print("Registro eliminado de $table con ID $id");
     } catch (e) {
       print("Error al eliminar en $table: $e");
+    }
+  }
+
+  Future<Either<ExceptionEntity, List<Map<String, dynamic>>>> getAllFromTable(
+      String tableName) async {
+    try {
+      List<Map<String, dynamic>> result = await db.query(tableName);
+      return Right(result);
+    } catch (e) {
+      print("Error al ejecutar la consulta: $e");
+      return Left(ExceptionEntity(code: 'Error executing query'));
     }
   }
 

@@ -21,8 +21,8 @@ class ImageNetworkWithLoadWidget extends StatelessWidget {
     return imageUrl.startsWith('http') || imageUrl.startsWith('https');
   }
 
-  _isFile() {
-    return imageUrl.startsWith('/data/user/0/');
+  _isLocal() {
+    return imageUrl.startsWith('assets/');
   }
 
   @override
@@ -30,7 +30,7 @@ class ImageNetworkWithLoadWidget extends StatelessWidget {
     return Image(
       image: _isWeb()
           ? NetworkImage(imageUrl)
-          : (_isFile() ? FileImage(File(imageUrl)) : AssetImage(imageUrl)),
+          : (_isLocal() ? AssetImage(imageUrl) : FileImage(File(imageUrl))),
       fit: fit,
       width: width,
       height: height,

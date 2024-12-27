@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:samay/data/db/db_setting.dart';
+import 'package:samay/data/repositories/agency/agency_repository_dev.dart';
 import 'package:samay/data/repositories/agency/agency_repository_fake.dart';
+import 'package:samay/data/repositories/agency/agency_repository_impl.dart';
 import 'package:samay/data/repositories/domotic/domotic_repository_dev.dart';
 import 'package:samay/data/repositories/domotic/domotic_repository_fake.dart';
 import 'package:samay/data/repositories/domotic/domotic_repository_impl.dart';
@@ -49,13 +51,14 @@ class DependencyInjection {
       getIt.registerSingleton<ProjectRepository>(ProjectRepositoryFake());
     } else if (mode == Flavor.dev) {
       getIt.registerSingleton<DbSetting>(DbSetting());
-      getIt.registerSingleton<AgencyRepository>(AgencyRepositoryFake());
+      getIt.registerSingleton<AgencyRepository>(AgencyRepositoryDev());
       getIt.registerSingleton<DomoticRepository>(DomoticRepositoryDev());
       getIt.registerSingleton<LocalizationRepository>(
           LocalizationRepositoryDev());
       getIt.registerSingleton<ProjectRepository>(ProjectRepositoryDev());
     } else {
       getIt.registerSingleton<DbSetting>(DbSetting());
+      getIt.registerSingleton<AgencyRepository>(AgencyRepositoryImpl());
       getIt.registerSingleton<DomoticRepository>(DomoticRepositoryImpl());
       getIt.registerSingleton<LocalizationRepository>(
           LocalizationRepositoryImpl());

@@ -14,4 +14,9 @@ class AgencyEntity {
     required this.logo,
     required this.aditionalFields,
   });
+
+  @override
+  String toString() {
+    return 'AgencyEntity{id: $id, name: $name, hexColor: $hexColor, logo: $logo, aditionalFields: $aditionalFields}';
+  }
 }

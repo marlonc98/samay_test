@@ -1,14 +1,9 @@
-// ignore_for_file: implementation_imports
-
 import 'dart:math';
-import 'dart:ui';
-import 'package:either_dart/src/either.dart';
-import 'package:flutter/src/material/theme_data.dart';
+import 'package:either_dart/either.dart';
 import 'package:samay/domain/entities/aditional_field_entity.dart';
 import 'package:samay/domain/entities/agency_entity.dart';
 import 'package:samay/domain/entities/exception_entity.dart';
 import 'package:samay/domain/repositories/agency_respository.dart';
-import 'package:samay/presentation/ui/theme/light_theme.dart';
 
 AgencyEntity fakeAgency = AgencyEntity(
   id: '1',
@@ -36,16 +31,6 @@ AgencyEntity fakeAgency = AgencyEntity(
 );
 
 class AgencyRepositoryFake extends AgencyRepository {
-  @override
-  Future<ThemeData> getThemeFromAgency(AgencyEntity? agency) async {
-    if (agency == null) {
-      return lightTheme();
-    }
-    Color color = Color(int.parse('0xFF${agency.hexColor}'));
-    ThemeData theme = lightTheme(colorMain: color);
-    return theme;
-  }
-
   @override
   Future<Either<ExceptionEntity, AgencyEntity?>> loadSelectedAgent() async {
     await Future.delayed(const Duration(seconds: 1));

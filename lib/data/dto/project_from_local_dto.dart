@@ -9,7 +9,7 @@ class ProjectFromLocalDto {
       price: json[ProjectTableScheme.price],
       location: json[ProjectTableScheme.location],
       agencyId: json[ProjectTableScheme.agencyId].toString(),
-      imageUrl: json[ProjectTableScheme.imageUrl],
+      imageUrl: json[ProjectTableScheme.imageUrl] ?? "",
     );
   }
 

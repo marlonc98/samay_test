@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:samay/domain/entities/agency_entity.dart';
 import 'package:samay/domain/states/agency_state.dart';
 import 'package:samay/domain/use_cases/agency/load_all_agencies_use_case.dart';
+import 'package:samay/presentation/ui/widgets/image_network_with_load_widget.dart';
 
 class DropdownAgenciesWidget extends StatefulWidget {
   final Function(AgencyEntity? agency)? onChange;
@@ -39,9 +40,10 @@ class _DropdownAgenciesWidgetState extends State<DropdownAgenciesWidget> {
         hint: Row(
           children: agencyState.selectedAgency != null
               ? [
-                  Image.network(
+                  ImageNetworkWithLoadWidget(
                     agencyState.selectedAgency!.logo,
                     height: 20,
+                    width: 20,
                   ),
                   const SizedBox(width: 8),
                   Text(agencyState.selectedAgency!.name +
@@ -65,9 +67,10 @@ class _DropdownAgenciesWidgetState extends State<DropdownAgenciesWidget> {
             value: item.id,
             child: Row(
               children: [
-                Image.network(
+                ImageNetworkWithLoadWidget(
                   item.logo,
                   height: 20,
+                  width: 20,
                 ),
                 const SizedBox(width: 8),
                 Text(
@@ -83,6 +86,7 @@ class _DropdownAgenciesWidgetState extends State<DropdownAgenciesWidget> {
         onChanged: (value) {
           agencyState.selectedAgency = agencyState.listOfAgencies
               .firstWhere((element) => element.id == value);
+          widget.onChange?.call(agencyState.selectedAgency);
         },
       ),
     );
