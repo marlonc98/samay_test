@@ -59,5 +59,12 @@ class KeyWordsConstants {
       "domoticApiErrorBluetoothIsNotAuthorized";
   static const String domoticApiErrorBluetoothNotFindingDevices =
       "domoticApiErrorBluetoothNotFindingDevices";
+
+  static const String projectApiErrorCreatingProject =
+      "projectApiErrorCreatingProject";
+  static const String projectApiErrorGettingById = "projectApiErrorGettingById";
+  static const String projectApiErrorSearchingProjects =
+      "projectApiErrorSearchingProjects";
+  static const String projectApiErrorUpdating = "projectApiErrorUpdating";
   //#region API
 }

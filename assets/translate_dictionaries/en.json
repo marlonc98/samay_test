@@ -35,6 +35,16 @@
     "domoticApiErrorDisconnectingDevice": "Error disconnecting from device",
     "domoticApiErrorGettingSavedDevices": "Error getting saved devices",
     "domoticApiErrorSavingNewDevice": "Error saving new device",
+    "domoticApiErrorDeletingDevice": "Error deleting device",
+    "domoticApiErrorBluetoothIsNotSupported": "Bluetooth is not supported on this device",
+    "domoticApiErrorBluetoothIsNotEnabled": "Bluetooth is off",
+    "domoticApiErrorBluetoothIsNotAuthorized": "Bluetooth is not authorized",
+    "domoticApiErrorBluetoothNotFindingDevices": "No devices found",
+
+    "projectApiErrorCreatingProject": "Error creating project",
+    "projectApiErrorGettingById": "Project not found",
+    "projectApiErrorSearchingProjects": "No projects found",
+    "projectApiErrorUpdating": "Error updating project",
 
     "-------- END API --------": "-------- END API --------",
 }

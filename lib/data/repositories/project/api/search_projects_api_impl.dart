@@ -7,6 +7,7 @@ import 'package:samay/domain/entities/exception_entity.dart';
 import 'package:samay/domain/entities/project_entity.dart';
 import 'package:samay/domain/entities/project_filter_entity.dart';
 import 'package:samay/domain/entities/search_result_entity.dart';
+import 'package:samay/utils/key_words_constants.dart';
 
 Future<Either<ExceptionEntity, SearchResultEntity<ProjectEntity>>>
     searchProjectsApiImpl(
@@ -54,6 +55,7 @@ Future<Either<ExceptionEntity, SearchResultEntity<ProjectEntity>>>
       ));
     }
   } catch (e) {
-    return Left(ExceptionEntity(code: 'Error searching items'));
+    return Left(ExceptionEntity(
+        code: KeyWordsConstants.projectApiErrorSearchingProjects));
   }
 }

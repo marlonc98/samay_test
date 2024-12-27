@@ -5,6 +5,7 @@ import 'package:samay/data/db/db_setting.dart';
 import 'package:samay/data/dto/project_from_local_dto.dart';
 import 'package:samay/domain/entities/exception_entity.dart';
 import 'package:samay/domain/entities/project_entity.dart';
+import 'package:samay/utils/key_words_constants.dart';
 
 Future<Either<ExceptionEntity, ProjectEntity>> getPropertyByIdApiImpl(
     String id) async {
@@ -17,6 +18,7 @@ Future<Either<ExceptionEntity, ProjectEntity>> getPropertyByIdApiImpl(
     }
     return Right(ProjectFromLocalDto.fromJSON(response.right));
   } catch (e) {
-    return Left(ExceptionEntity.fromException(e));
+    return Left(
+        ExceptionEntity(code: KeyWordsConstants.projectApiErrorGettingById));
   }
 }
