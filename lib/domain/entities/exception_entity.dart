@@ -1,5 +1,7 @@
+import 'package:samay/utils/key_words_constants.dart';
+
 class ExceptionEntity implements Exception {
-  static const String unknownError = 'server_error_unknown_error';
+  static const String unknownError = KeyWordsConstants.unknownError;
   final String code;
   final String message;
 

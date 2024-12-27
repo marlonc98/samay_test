@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:samay/domain/entities/bluetooth_device_entity.dart';
 import 'package:samay/presentation/ui/pages/domotic/connected/widgets/card_device_widget.dart';
 import 'package:samay/presentation/ui/pages/domotic/detailed/detailed_device_page_view_model.dart';
+import 'package:samay/utils/key_words_constants.dart';
 
 class DetailedDevicePage extends StatefulWidget {
   static const String route = '/domotic/detailed';
@@ -66,7 +67,11 @@ class _DetailedDevicePageState extends State<DetailedDevicePage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: widget.device.interactions.isEmpty
-                                  ? const [Text("No interactions yet")]
+                                  ? [
+                                      Text(viewModel.localization.translate(
+                                          KeyWordsConstants
+                                              .detailedDevicePageNoInteractions))
+                                    ]
                                   : widget.device.interactions
                                       .map((interaction) => Text(interaction))
                                       .toList(),

@@ -3,18 +3,21 @@ import 'package:provider/provider.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:samay/domain/entities/project_entity.dart';
 import 'package:samay/domain/states/agency_state.dart';
+import 'package:samay/domain/states/localization_state.dart';
 import 'package:samay/presentation/ui/pages/projects/create/project_create_page.dart';
 import 'package:samay/presentation/ui/pages/projects/detailed/project_detailed_page.dart';
 import 'package:samay/presentation/ui/pages/projects/list/projects_page_view_model.dart';
 import 'package:samay/presentation/ui/pages/projects/list/widgets/banner_project_searcher_widget.dart';
 import 'package:samay/presentation/ui/pages/projects/list/widgets/card_project_widget.dart';
 import 'package:samay/presentation/ui/widgets/custom_botttom_navigation_widget.dart';
+import 'package:samay/utils/key_words_constants.dart';
 
 class ProjectsPage extends StatelessWidget {
   static const String route = '/projects';
   const ProjectsPage({super.key});
 
   SliverToBoxAdapter _addProjectButton(BuildContext context) {
+    final localization = Provider.of<LocalizationState>(context);
     return SliverToBoxAdapter(
       child: Container(
           padding:
@@ -28,7 +31,8 @@ class ProjectsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  "Add Project...",
+                  localization
+                      .translate(KeyWordsConstants.projectPageAddProject),
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         overflow: TextOverflow.ellipsis,
                       ),

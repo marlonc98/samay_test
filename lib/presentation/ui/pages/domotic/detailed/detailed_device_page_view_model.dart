@@ -22,7 +22,7 @@ class DetailedDevicePageViewModel extends ViewModel<DetailedDevicePage> {
       ShowModal.showSnackBar(
           // ignore: use_build_context_synchronously
           context: context,
-          text: response.left.code,
+          text: localization.translate(response.left.code),
           error: true);
     } else if (mounted) {
       // ignore: use_build_context_synchronously
@@ -40,7 +40,7 @@ class DetailedDevicePageViewModel extends ViewModel<DetailedDevicePage> {
       ShowModal.showSnackBar(
           // ignore: use_build_context_synchronously
           context: context,
-          text: response.left.code,
+          text: localization.translate(response.left.code),
           error: true);
     }
     if (mounted) notifyListeners();
@@ -56,7 +56,7 @@ class DetailedDevicePageViewModel extends ViewModel<DetailedDevicePage> {
       ShowModal.showSnackBar(
           // ignore: use_build_context_synchronously
           context: context,
-          text: response.left.code,
+          text: localization.translate(response.left.code),
           error: true);
     }
   }

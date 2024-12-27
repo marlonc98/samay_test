@@ -4,9 +4,11 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:samay/domain/entities/bluetooth_device_entity.dart';
 import 'package:samay/domain/entities/exception_entity.dart';
+import 'package:samay/domain/states/localization_state.dart';
 import 'package:samay/domain/use_cases/domotic/add_interaction_device_use_case.dart';
 import 'package:samay/presentation/ui/widgets/image_network_with_load_widget.dart';
 import 'package:samay/utils/images_constants.dart';
+import 'package:samay/utils/key_words_constants.dart';
 
 class CardDeviceWidget extends StatefulWidget {
   final BluetoothDeviceEntity device;
@@ -29,10 +31,15 @@ class CardDeviceWidget extends StatefulWidget {
 }
 
 class _CardDeviceWidgetState extends State<CardDeviceWidget> {
+  final localization = GetIt.I.get<LocalizationState>();
   void turnDeviceOnOff(bool value) async {
     Either<ExceptionEntity, void> result = await GetIt.I
         .get<AddInteractionDeviceUseCase>()
-        .call(widget.device, value ? "Turn On" : "Turn Off");
+        .call(
+            widget.device,
+            localization.translate(value
+                ? KeyWordsConstants.cardDeviceWidgetTurnOn
+                : KeyWordsConstants.cardDeviceWidgetTurnOff));
     if (result.isLeft && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(result.left.message),
@@ -100,7 +107,10 @@ class _CardDeviceWidgetState extends State<CardDeviceWidget> {
                 children: [
                   Expanded(
                       child: Text(
-                    widget.device.name.isEmpty ? "No name" : widget.device.name,
+                    widget.device.name.isEmpty
+                        ? localization
+                            .translate(KeyWordsConstants.cardDeviceWidgetNoName)
+                        : widget.device.name,
                     overflow: TextOverflow.ellipsis,
                   )),
                   StreamBuilder(

@@ -8,6 +8,7 @@ import 'package:samay/presentation/ui/widgets/image_network_with_load_widget.dar
 import 'package:samay/presentation/ui/widgets/loading_widget.dart';
 import 'package:samay/presentation/ui/widgets/not_found_widget.dart';
 import 'package:samay/utils/currency_format.dart';
+import 'package:samay/utils/key_words_constants.dart';
 
 class ProjectDetailedPage extends StatelessWidget {
   static const String route = '/projects/detailed';
@@ -103,7 +104,8 @@ class ProjectDetailedPage extends StatelessWidget {
                         children: [
                           const SizedBox(height: 8),
                           Text(
-                            "Home",
+                            viewModel.localization.translate(
+                                KeyWordsConstants.projectDetailedPageHome),
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium
@@ -115,7 +117,8 @@ class ProjectDetailedPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            "DESCRIPTION",
+                            viewModel.localization.translate(KeyWordsConstants
+                                .projectDetailedPageDescription),
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                           Text(
@@ -178,14 +181,16 @@ class ProjectDetailedPage extends StatelessWidget {
                                 .titleMedium
                                 ?.copyWith(color: Colors.white)),
                         const SizedBox(width: 8),
-                        const Text("+ taxes/fees"),
+                        Text(viewModel.localization.translate(
+                            KeyWordsConstants.projectDetailedPageTaxes)),
                       ],
                     ),
                   ),
                   const SizedBox(width: 8),
                   ElevatedButton(
                     onPressed: () {},
-                    child: const Text("Contact"),
+                    child: Text(viewModel.localization.translate(
+                        KeyWordsConstants.projectDetailedPageContact)),
                   ),
                 ],
               ),

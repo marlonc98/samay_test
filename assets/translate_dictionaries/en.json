@@ -47,5 +47,7 @@
     "projectApiErrorUpdating": "Error updating project",
 
     "agencyApiErrorGetAllAgencies": "No agencies found",
+
+    "unknownError": "An error occurred",
     "-------- END API --------": "-------- END API --------"
 }

@@ -7,6 +7,7 @@ import 'package:samay/presentation/ui/pages/domotic/search/search_devices_page.d
 import 'package:samay/presentation/ui/widgets/custom_botttom_navigation_widget.dart';
 import 'package:samay/presentation/ui/widgets/loading_widget.dart';
 import 'package:samay/presentation/ui/widgets/not_found_widget.dart';
+import 'package:samay/utils/key_words_constants.dart';
 
 class ConnectedDevicesPage extends StatefulWidget {
   static const String route = '/domotic/connected';
@@ -48,7 +49,8 @@ class _ConnectedDevicesPageState extends State<ConnectedDevicesPage> {
                 child: CustomScrollView(
                   slivers: [
                     SliverAppBar(
-                      title: const Text('Connected Devices'),
+                      title: Text(viewModel.localization.translate(
+                          KeyWordsConstants.connectedDevicesPageTitle)),
                       floating: true,
                       snap: true,
                       actions: [

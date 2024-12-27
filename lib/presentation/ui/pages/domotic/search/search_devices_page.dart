@@ -5,6 +5,7 @@ import 'package:samay/presentation/ui/pages/domotic/search/search_devices_page_v
 import 'package:samay/presentation/ui/pages/domotic/search/widgets/bluettoth_item_widget.dart';
 import 'package:samay/presentation/ui/widgets/loading_widget.dart';
 import 'package:samay/presentation/ui/widgets/not_found_widget.dart';
+import 'package:samay/utils/key_words_constants.dart';
 
 class SearchDevicesPage extends StatefulWidget {
   static const String route = '/domotic/search';
@@ -26,7 +27,8 @@ class _SearchDevicesPageState extends State<SearchDevicesPage> {
             onRefresh: viewModel.refresh,
             child: CustomScrollView(slivers: [
               SliverAppBar(
-                title: const Text('Search Devices'),
+                title: Text(viewModel.localization
+                    .translate(KeyWordsConstants.searchDevicesPageTitle)),
                 floating: true,
                 snap: true,
                 actions: [

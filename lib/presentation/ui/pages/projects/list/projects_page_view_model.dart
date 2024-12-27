@@ -46,7 +46,7 @@ class ProjectsPageViewModel extends ViewModel<ProjectsPage> {
         ShowModal.showSnackBar(
             // ignore: use_build_context_synchronously
             context: context,
-            text: response.left.code,
+            text: localization.translate(response.left.code),
             error: true);
       }
       return;

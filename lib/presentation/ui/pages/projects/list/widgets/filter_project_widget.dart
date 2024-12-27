@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:samay/domain/entities/project_filter_entity.dart';
+import 'package:samay/domain/states/localization_state.dart';
 import 'package:samay/presentation/ui/widgets/form/validators.dart';
 import 'package:samay/utils/currency_format.dart';
+import 'package:samay/utils/key_words_constants.dart';
 
 class FilterProjectWidget extends StatefulWidget {
   final Function(ProjectFilterEntity filter) onFilter;
@@ -43,6 +46,7 @@ class _FilterProjectWidget extends State<FilterProjectWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = Provider.of<LocalizationState>(context);
     return Container(
       padding: const EdgeInsets.all(16),
       margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -60,7 +64,7 @@ class _FilterProjectWidget extends State<FilterProjectWidget> {
       child: Column(
         children: [
           Text(
-            'Filtrar proyectos',
+            localization.translate(KeyWordsConstants.filterProjectWidgetTitle),
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -68,9 +72,11 @@ class _FilterProjectWidget extends State<FilterProjectWidget> {
             ),
           ),
           TextFormField(
-            decoration: const InputDecoration(
-              labelText: "Ubicación",
-              prefixIcon: Icon(
+            decoration: InputDecoration(
+              labelText: localization.translate(
+                KeyWordsConstants.filterProjectWidgetLocation,
+              ),
+              prefixIcon: const Icon(
                 Icons.map_outlined,
               ),
             ),
@@ -83,7 +89,9 @@ class _FilterProjectWidget extends State<FilterProjectWidget> {
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Precio',
+              localization.translate(
+                KeyWordsConstants.filterProjectWidgetPrice,
+              ),
               textAlign: TextAlign.start,
               style: TextStyle(
                 fontSize: 12,
@@ -95,9 +103,11 @@ class _FilterProjectWidget extends State<FilterProjectWidget> {
           Row(children: [
             Expanded(
               child: TextFormField(
-                decoration: const InputDecoration(
-                  labelText: "Desde",
-                  prefixIcon: Icon(
+                decoration: InputDecoration(
+                  labelText: localization.translate(
+                    KeyWordsConstants.filterProjectWidgetMin,
+                  ),
+                  prefixIcon: const Icon(
                     Icons.attach_money,
                   ),
                 ),
@@ -121,9 +131,11 @@ class _FilterProjectWidget extends State<FilterProjectWidget> {
             const SizedBox(width: 8),
             Expanded(
               child: TextFormField(
-                decoration: const InputDecoration(
-                  labelText: "Hasta",
-                  prefixIcon: Icon(
+                decoration: InputDecoration(
+                  labelText: localization.translate(
+                    KeyWordsConstants.filterProjectWidgetMax,
+                  ),
+                  prefixIcon: const Icon(
                     Icons.attach_money,
                   ),
                 ),
@@ -159,7 +171,9 @@ class _FilterProjectWidget extends State<FilterProjectWidget> {
                     );
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Filtrar'),
+                  child: Text(localization.translate(
+                    KeyWordsConstants.filterProjectWidgetFilter,
+                  )),
                 ),
               ),
             ],

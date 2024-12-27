@@ -39,8 +39,11 @@ class SearchDevicesPageViewModel extends ViewModel<SearchDevicesPage> {
       if (mounted) notifyListeners();
       if (mounted) {
         waiterDevices.dataError = response.left.code;
-        // ignore: use_build_context_synchronously
-        ShowModal.showSnackBar(context: context, text: response.left.code);
+        ShowModal.showSnackBar(
+          // ignore: use_build_context_synchronously
+          context: context,
+          text: localization.translate(response.left.code),
+        );
       }
     } else {
       waiterDevices = WaiterDataEntity(

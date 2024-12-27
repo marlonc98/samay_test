@@ -3,8 +3,10 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:samay/domain/entities/agency_entity.dart';
 import 'package:samay/domain/states/agency_state.dart';
+import 'package:samay/domain/states/localization_state.dart';
 import 'package:samay/domain/use_cases/agency/load_all_agencies_use_case.dart';
 import 'package:samay/presentation/ui/widgets/image_network_with_load_widget.dart';
+import 'package:samay/utils/key_words_constants.dart';
 
 class DropdownAgenciesWidget extends StatefulWidget {
   final Function(AgencyEntity? agency)? onChange;
@@ -29,6 +31,7 @@ class _DropdownAgenciesWidgetState extends State<DropdownAgenciesWidget> {
   @override
   Widget build(BuildContext context) {
     final agencyState = Provider.of<AgencyState>(context);
+    final localization = Provider.of<LocalizationState>(context);
     return Container(
       decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
@@ -53,7 +56,8 @@ class _DropdownAgenciesWidgetState extends State<DropdownAgenciesWidget> {
                   Padding(
                     padding: const EdgeInsets.only(left: 8, right: 16),
                     child: Text(
-                      'Select real state agency',
+                      localization.translate(
+                          KeyWordsConstants.dropdownAgenciesWidgetSelectAgency),
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             overflow: TextOverflow.ellipsis,
                           ),

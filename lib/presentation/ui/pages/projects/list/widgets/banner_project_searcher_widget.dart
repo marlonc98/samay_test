@@ -2,11 +2,14 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:samay/domain/entities/agency_entity.dart';
 import 'package:samay/domain/entities/project_filter_entity.dart';
+import 'package:samay/domain/states/localization_state.dart';
 import 'package:samay/presentation/ui/pages/projects/list/widgets/dropdown_agencies_widget.dart';
 import 'package:samay/presentation/ui/pages/projects/list/widgets/filter_project_widget.dart';
 import 'package:samay/utils/images_constants.dart';
+import 'package:samay/utils/key_words_constants.dart';
 
 class BannerProjectSearcherWidget extends StatefulWidget {
   final Function(ProjectFilterEntity filter) onChangeFilter;
@@ -64,6 +67,7 @@ class _SearchProjectWidgetState extends State<BannerProjectSearcherWidget> {
 
   @override
   SliverAppBar build(BuildContext context) {
+    final localization = Provider.of<LocalizationState>(context);
     return SliverAppBar(
       expandedHeight: _calculateLimitExpanded(context),
       collapsedHeight: 100,
@@ -101,16 +105,18 @@ class _SearchProjectWidgetState extends State<BannerProjectSearcherWidget> {
                     ImagesConstants.logoWhite,
                     height: 50,
                   ),
-                  const Text(
-                    'Welcome!',
-                    style: TextStyle(
+                  Text(
+                    localization.translate(
+                        KeyWordsConstants.bannerProjectSearcherWidgetWelcome),
+                    style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 20),
                   ),
-                  const Text(
-                    'Find your dreams',
-                    style: TextStyle(
+                  Text(
+                    localization.translate(KeyWordsConstants
+                        .bannerProjectSearcherWidgetfindYourDreams),
+                    style: const TextStyle(
                         color: Colors.white, fontWeight: FontWeight.w400),
                   ),
                   const SizedBox(
@@ -142,7 +148,8 @@ class _SearchProjectWidgetState extends State<BannerProjectSearcherWidget> {
                       isDense: true,
                       prefixIconConstraints: const BoxConstraints(maxWidth: 30),
                       hintStyle: Theme.of(context).textTheme.bodyMedium,
-                      hintText: 'Search',
+                      hintText: localization.translate(
+                          KeyWordsConstants.bannerProjectSearcherWidgetSearch),
                       prefixIcon: const Padding(
                         padding: EdgeInsets.only(left: 8, right: 4),
                         child: Icon(
@@ -172,9 +179,10 @@ class _SearchProjectWidgetState extends State<BannerProjectSearcherWidget> {
                       backgroundColor: Theme.of(context).primaryColor,
                       padding: const EdgeInsets.symmetric(horizontal: 5)),
                   onPressed: () {},
-                  child: const Text(
-                    "Search",
-                    style: TextStyle(fontSize: 12, color: Colors.white),
+                  child: Text(
+                    localization.translate(
+                        KeyWordsConstants.bannerProjectSearcherWidgetSearch),
+                    style: const TextStyle(fontSize: 12, color: Colors.white),
                   )),
             ],
           ),

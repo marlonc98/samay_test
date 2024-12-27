@@ -4,9 +4,6 @@ class KeyWordsConstants {
   static const String update = "update";
   static const String accept = "accept";
 
-  static const String notFoundWidgetNotResults = "notFoundWidgetNotResults";
-  static const String notFoundWidgetGoBack = "notFoundWidgetGoBack";
-
   static const String splashPageTitle = "splashPageTitle";
   static const String splashPageVersion = "splashPageVersion";
 
@@ -28,11 +25,23 @@ class KeyWordsConstants {
       "projectCreatePageDescriptionField";
   static const String projectCreatePageDescriptionHint =
       "projectCreatePageDescriptionHint";
+  static const String projectCreatePageProjectecUpdatedSuccesfully =
+      "projectCreatePageProjectecUpdatedSuccesfully";
+  static const String projectCreatePageProjectecCreatedSuccesfully =
+      "projectCreatePageProjectecCreatedSuccesfully";
 
-  static const String cameraPickerWidgetTitle = "cameraPickerWidgetTitle";
-  static const String cameraPickerWidgetText = "cameraPickerWidgetText";
-  static const String cameraPickerWidgetCamera = "cameraPickerWidgetCamera";
-  static const String cameraPickerWidgetGallery = "cameraPickerWidgetGallery";
+  static const String connectedDevicesPageTitle = "connectedDevicesPageTitle";
+
+  static const String detailedDevicePageNoInteractions =
+      "detailedDevicePageNoInteractions";
+
+  static const String searchDevicesPageTitle = "searchDevicesPageTitle";
+
+  static const String projectDetailedPageHome = "projectDetailedPageHome";
+  static const String projectDetailedPageDescription =
+      "projectDetailedPageDescription";
+  static const String projectDetailedPageTaxes = "projectDetailedPageTaxes";
+  static const String projectDetailedPageContact = "projectDetailedPageContact";
 
   //#region API
   static const String domoticApiErrorNoCharacteristic =
@@ -69,5 +78,26 @@ class KeyWordsConstants {
 
   static const String agencyApiErrorGetAllAgencies =
       "agencyApiErrorGetAllAgencies";
+
+  static const String unknownError = "unknownError";
   //#region API
+
+  //#region Widgets
+  static const String cardDeviceWidgetTurnOn = "cardDeviceWidgetTurnOn";
+  static const String cardDeviceWidgetTurnOff = "cardDeviceWidgetTurnOff";
+  static const String cardDeviceWidgetNoName = "cardDeviceWidgetNoName";
+
+  static const String notFoundWidgetNotResults = "notFoundWidgetNotResults";
+  static const String notFoundWidgetGoBack = "notFoundWidgetGoBack";
+
+  static const String bluetoothItemWidgetUnknown = "bluetoothItemWidgetUnknown";
+  static const String bluetoothItemWidgeConnected =
+      "bluetoothItemWidgeConnected";
+
+  static const String cameraPickerWidgetTitle = "cameraPickerWidgetTitle";
+  static const String cameraPickerWidgetText = "cameraPickerWidgetText";
+  static const String cameraPickerWidgetCamera = "cameraPickerWidgetCamera";
+  static const String cameraPickerWidgetGallery = "cameraPickerWidgetGallery";
+
+  //#endregion Widgets
 }

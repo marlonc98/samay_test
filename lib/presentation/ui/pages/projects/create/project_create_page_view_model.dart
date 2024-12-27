@@ -106,10 +106,16 @@ class ProjectCreatePageViewModel extends ViewModel<ProjectCreatePage> {
     if (response.isRight) {
       Navigator.of(context).pop();
       ShowModal.showSnackBar(
-          context: context, success: true, text: "Project Updated Succesully");
+          context: context,
+          success: true,
+          text: localization.translate(
+              KeyWordsConstants.projectCreatePageProjectecUpdatedSuccesfully));
     } else {
       ShowModal.showSnackBar(
-          context: context, success: false, text: response.left.message);
+        context: context,
+        success: false,
+        text: localization.translate(response.left.code),
+      );
     }
   }
 
@@ -149,10 +155,16 @@ class ProjectCreatePageViewModel extends ViewModel<ProjectCreatePage> {
       Navigator.of(context).popAndPushNamed(ProjectDetailedPage.route,
           arguments: ProjectDetailedPage(id: response.right.id));
       ShowModal.showSnackBar(
-          context: context, success: true, text: "Project Created Succesully");
+          context: context,
+          success: true,
+          text: localization.translate(
+              KeyWordsConstants.projectCreatePageProjectecCreatedSuccesfully));
     } else {
       ShowModal.showSnackBar(
-          context: context, success: false, text: response.left.message);
+        context: context,
+        success: false,
+        text: localization.translate(response.left.code),
+      );
     }
   }
 
