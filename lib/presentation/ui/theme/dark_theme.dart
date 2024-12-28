@@ -39,6 +39,7 @@ ThemeData darkTheme({Color colorMain = _colorMain}) {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         backgroundColor: colorMain,
+        textStyle: const TextStyle(color: Colors.white),
         // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
     ),

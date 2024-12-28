@@ -43,7 +43,7 @@ class DependencyInjection {
     GetIt getIt = GetIt.instance;
     Flavor? mode = F.appFlavor;
     //#region ------------- repositories -------------------------//
-    if (mode == Flavor.fake) {
+    if (mode == Flavor.fake || true) {
       getIt.registerSingleton<AgencyRepository>(AgencyRepositoryFake());
       getIt.registerSingleton<DomoticRepository>(DomoticRepositoryFake());
       getIt.registerSingleton<LocalizationRepository>(

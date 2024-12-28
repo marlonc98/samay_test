@@ -109,6 +109,7 @@ class _SearchProjectWidgetState extends State<BannerProjectSearcherWidget> {
                           agencyState.selectedAgency!.logo,
                           height: 70,
                           fit: BoxFit.fitHeight,
+                          defaultImage: ImagesConstants.imageNotFoundLogo,
                         )
                       : SvgPicture.asset(
                           ImagesConstants.logoWhite,

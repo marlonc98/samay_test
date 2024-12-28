@@ -1,3 +1,6 @@
+import 'package:get_it/get_it.dart';
+import 'package:samay/data/db/db_scheme.dart';
+import 'package:samay/data/db/db_setting.dart';
 import 'package:samay/domain/repositories/agency_respository.dart';
 import 'package:samay/domain/repositories/domotic_repository.dart';
 import 'package:samay/domain/repositories/localization_repository.dart';
@@ -34,6 +37,13 @@ class LoadUseCase {
     }
   }
 
+  Future<void> loadDB() async {
+    try {
+      await GetIt.I.get<DbSetting>().loadDatabase();
+      // ignore: empty_catches
+    } catch (e) {}
+  }
+
   // Future<void> _loadKnownDevices() async {
   //   final devices = await domoticRepository.getSavedDevices();
   //   if (devices.isRight) {
@@ -42,6 +52,7 @@ class LoadUseCase {
   // }
 
   Future<void> call() async {
+    await loadDB();
     await Future.wait([_getlanguage(), _getMyAgent()]);
   }
 }

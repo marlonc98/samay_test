@@ -8,12 +8,14 @@ class ImageNetworkWithLoadWidget extends StatelessWidget {
   final double? height;
   final double? width;
   final BoxFit fit;
+  final String? defaultImage;
 
   const ImageNetworkWithLoadWidget(
     this.imageUrl, {
     super.key,
     this.height,
     this.width,
+    this.defaultImage,
     this.fit = BoxFit.cover,
   });
 
@@ -38,6 +40,8 @@ class ImageNetworkWithLoadWidget extends StatelessWidget {
         return NotReadImageWidget(
           height: height,
           width: width,
+          fit: fit,
+          noImage: defaultImage,
         );
       },
       loadingBuilder: (context, child, loadingProgress) {

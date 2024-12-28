@@ -11,9 +11,7 @@ class DbSetting {
   static const int dbVersion = 1;
   late Database db;
 
-  DbSetting() {
-    loadDatabase();
-  }
+  DbSetting();
 
   Future<void> deleteDatabaseFile() async {
     try {
@@ -51,6 +49,7 @@ class DbSetting {
       final path = join(await getDatabasesPath(), dbName);
       db = await openDatabase(path, version: 1);
     } catch (e) {
+      print("Error reading database $e");
       // ignore: avoid_print
     }
   }
