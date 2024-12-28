@@ -185,6 +185,7 @@ Migrating to a server is easy. You only need to modify the **data layer** (repos
 - **Agency Requirement**: When creating a project, you cannot proceed without selecting an agency first. This simulates a login process.
 - **Navigation**: A bottom navigation bar is used to separate the real estate and Bluetooth functionalities, making the interface more intuitive.
 - **Device Interaction**: For devices in Bluetooth range, you can send data via text and monitor the connection status in real-time. Only devices with specific names are allowed to connect.
+- **Code For Bluetooth Classic**: On the bracnh classic you will find an older version of the code, with the domotic working but with the classic vs of bluetooth
 
 ## Final Considerations
 
